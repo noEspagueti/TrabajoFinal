@@ -22,6 +22,7 @@ public class Menu extends javax.swing.JFrame {
     Cliente cliente = new Cliente();
     ProductoAlmohadas almohadas = new ProductoAlmohadas();
     DefaultTableModel modeloTabla = new DefaultTableModel();
+
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -43,7 +44,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void mostrarTabla() {
-        
+
         modeloTabla.addColumn("Producto");
         modeloTabla.addColumn("Medida");
         modeloTabla.addColumn("Color");
@@ -52,7 +53,6 @@ public class Menu extends javax.swing.JFrame {
         actualizarTabla();
     }
 
-   
     public void agregarPedido() {
         cliente.setNombre(txtNombre.getText());
         cliente.setApellido(txtApellidos.getText());
@@ -615,60 +615,59 @@ public class Menu extends javax.swing.JFrame {
         switch (pro) {
             case "Almohadas Punto":
                 if (medida.equals(this.medida[0])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[0]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[0]);
                 } else if (medida.equals(this.medida[1])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[1]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[1]);
                 } else if (medida.equals(this.medida[2])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[2]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[2]);
                 }
                 break;
             case "Almohadas Alcolchadas":
                 if (medida.equals(this.medida[0])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[3]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[3]);
 
                 } else if (medida.equals(this.medida[1])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[4]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[4]);
 
                 } else if (medida.equals(this.medida[2])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[5]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[5]);
 
                 }
                 break;
             case "Almohadas Canon":
                 if (medida.equals(this.medida[0])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[6]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[6]);
 
                 } else if (medida.equals(this.medida[1])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[7]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[7]);
 
                 } else if (medida.equals(this.medida[2])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[8]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[8]);
 
                 }
                 break;
-            case "Almohadas Popelina": case "Almohadas Económica":
+            case "Almohadas Popelina":
+            case "Almohadas Económica":
                 if (medida.equals(this.medida[0])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[9]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[9]);
 
                 } else if (medida.equals(this.medida[1])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[10]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[10]);
 
                 } else if (medida.equals(this.medida[2])) {
-                    p = String.valueOf((double)cantidad.getValue() * this.precioPorUnidad[11]);
+                    p = String.valueOf((double) cantidad.getValue() * this.precioPorUnidad[11]);
 
                 }
                 break;
-            
+
             default:
 //                p = String.valueOf(precioPorUnidad[0]);
         }
-        precioTotal.setText("S/. "+ p);
+        precioTotal.setText("S/. " + p);
     }
-    
 
     public void actualizarTabla() {
-        
-       
+
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -698,7 +697,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jButton1MouseClicked
 
 
@@ -738,18 +737,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnAgregarMouseClicked
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
         boxProducto.setSelectedIndex(0);
         precio.setText("S/. " + String.valueOf(precioPorUnidad[0]));
         boxMedidas.setSelectedIndex(0);
         Double in = 1d;
         cantidad.setValue(in);
         precioT();
-    }//GEN-LAST:event_btnAgregarMouseClicked
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-       
-        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void cantidadComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_cantidadComponentAdded
