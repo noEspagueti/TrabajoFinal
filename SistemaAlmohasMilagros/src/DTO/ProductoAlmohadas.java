@@ -6,7 +6,7 @@ public class ProductoAlmohadas {
     protected String nombreProducto;
     protected String medida;
     protected String color;
-    protected double precioUnitario;
+    protected Double precioUnitario;
     protected int cantidad;
 
     public ProductoAlmohadas() {
@@ -65,7 +65,7 @@ public class ProductoAlmohadas {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(double precioUnitario) {
+    public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 

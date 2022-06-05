@@ -48,6 +48,7 @@ public class Menu extends javax.swing.JFrame {
         modeloTabla.addColumn("Producto");
         modeloTabla.addColumn("Medida");
         modeloTabla.addColumn("Color");
+        modeloTabla.addColumn("Cantidad");
         modeloTabla.addColumn("Precio");
         tableMatriz.setModel(modeloTabla);
         actualizarTabla();
@@ -258,13 +259,13 @@ public class Menu extends javax.swing.JFrame {
         tableMatriz.setBackground(new java.awt.Color(255, 255, 255));
         tableMatriz.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "1", "2", "3", "4", "5"
+                "1", "2", "3", "4", "5", "6"
             }
         ));
         jScrollPane1.setViewportView(tableMatriz);
@@ -603,11 +604,14 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void calcularPrecio() {
+
         precio.setText("S/. " + almohadas.getPrecioUnitario());
+
     }
 
     public void precioT() {
 //        Double can = (Double) cantidad.getValue();
+
         String p = "0.0";
         String medida = (String) boxMedidas.getSelectedItem();
         String pro = (String) boxProducto.getSelectedItem();
@@ -663,6 +667,7 @@ public class Menu extends javax.swing.JFrame {
             default:
 //                p = String.valueOf(precioPorUnidad[0]);
         }
+
         precioTotal.setText("S/. " + p);
     }
 
@@ -703,7 +708,20 @@ public class Menu extends javax.swing.JFrame {
 
     private void comboColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboColorItemStateChanged
         // TODO add your handling code here:
-
+        String produc = (String) boxProducto.getSelectedItem();
+        switch(produc){
+            case "Almohadas Punto":
+                almohadas.setColor(color1[comboColor.getSelectedIndex()]);break;
+            case "Almohadas Alcolchadas":
+                almohadas.setColor(color2[comboColor.getSelectedIndex()]);
+                break;
+            case "Almohadas Canon":    
+                almohadas.setColor(color3[comboColor.getSelectedIndex()]);
+                break;
+            case "Almohadas Popelina":
+            case "Almohadas Económica": 
+                almohadas.setColor(color4[comboColor.getSelectedIndex()]);
+        }
     }//GEN-LAST:event_comboColorItemStateChanged
 
     private void boxProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxProductoItemStateChanged
@@ -740,14 +758,31 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAgregarMouseClicked
 
+
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        almohadas.setNombreProducto(Producto[boxProducto.getSelectedIndex()]);
+        almohadas.setMedida(medida[boxMedidas.getSelectedIndex()]);
+
+        //Agregar en la tabla
+        String can = String.valueOf(cantidad.getValue());
+        String p = String.valueOf(almohadas.getPrecioUnitario());
+        String informacion[] = new String[5];
+        informacion[0] = almohadas.getNombreProducto();
+        informacion[1] = almohadas.getMedida();
+        informacion[2] = almohadas.getColor();
+        informacion[3] = can;
+        informacion[4] = p;
+        modeloTabla.addRow(informacion);
+
+        //Desaparecer
         boxProducto.setSelectedIndex(0);
         precio.setText("S/. " + String.valueOf(precioPorUnidad[0]));
         boxMedidas.setSelectedIndex(0);
         Double in = 1d;
         cantidad.setValue(in);
         precioT();
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void cantidadComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_cantidadComponentAdded
