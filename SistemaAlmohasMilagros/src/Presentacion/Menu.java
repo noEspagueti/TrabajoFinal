@@ -41,6 +41,7 @@ public class Menu extends javax.swing.JFrame {
 
         precioPorMedida();
         precioT();
+        asignarColor();
     }
 
     public void mostrarTabla() {
@@ -708,6 +709,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void comboColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboColorItemStateChanged
         // TODO add your handling code here:
+        asignarColor();
+    }//GEN-LAST:event_comboColorItemStateChanged
+    
+    public void asignarColor(){
         String produc = (String) boxProducto.getSelectedItem();
         switch(produc){
             case "Almohadas Punto":
@@ -721,9 +726,9 @@ public class Menu extends javax.swing.JFrame {
             case "Almohadas Popelina":
             case "Almohadas Económica": 
                 almohadas.setColor(color4[comboColor.getSelectedIndex()]);
+                break;
         }
-    }//GEN-LAST:event_comboColorItemStateChanged
-
+    }
     private void boxProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxProductoItemStateChanged
         // TODO add your handling code here:
         String produc = (String) boxProducto.getSelectedItem();
@@ -745,12 +750,14 @@ public class Menu extends javax.swing.JFrame {
         }
         precioPorMedida();
         precioT();
+        asignarColor();
     }//GEN-LAST:event_boxProductoItemStateChanged
 
     private void boxMedidasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxMedidasItemStateChanged
         // TODO add your handling code here:
         precioPorMedida();
         precioT();
+        asignarColor();
     }//GEN-LAST:event_boxMedidasItemStateChanged
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
