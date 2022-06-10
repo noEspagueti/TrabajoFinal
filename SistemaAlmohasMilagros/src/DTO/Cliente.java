@@ -1,11 +1,11 @@
 package DTO;
 public class Cliente extends Persona{
-    
+    //agregar provincia
     protected String ubicacion;
     protected int cantidadProducto;
     protected String RUC;
     protected String razonSocial;
-
+    
     public Cliente() {
     }
     
