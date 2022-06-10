@@ -323,6 +323,8 @@ public class Login extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtUsuario.setText("");
         txtPassword.setText("");
+        fuenteColor.mensaje(txtUsuario, mensaje.getUsuario(), 0);
+        iniciarPassword();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked

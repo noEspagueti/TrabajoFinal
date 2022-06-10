@@ -2,6 +2,8 @@ package Presentacion;
 
 import DTO.Cliente;
 import DTO.ProductoAlmohadas;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,9 @@ public class Menu extends javax.swing.JFrame {
     ProductoAlmohadas almohadas = new ProductoAlmohadas();
     DefaultTableModel modeloTabla = new DefaultTableModel();
 
+    FuenteColor fuenteColor;
+    LetraFantasmaMenu letraFmenu;
+
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -42,10 +47,27 @@ public class Menu extends javax.swing.JFrame {
         precioPorMedida();
         precioT();
         asignarColor();
+        fuenteColor = new FuenteColor();
+        letraFmenu = new LetraFantasmaMenu();
+        txtNombre.requestFocus();
+        txtApellidos.setCaretPosition(0);
+        txtDNI.setCaretPosition(0);
+        txtRazonSocial.setCaretPosition(0);
+        txtRUC.setCaretPosition(0);
+        txtDestino.setCaretPosition(0);
+        iniciar();
+    }
+
+    public void iniciar() {
+        fuenteColor.mensaje(txtNombres, letraFmenu.getNombre(), 0);
+        fuenteColor.mensaje(txtApellidos, letraFmenu.getApellido(), 0);
+        fuenteColor.mensaje(txtDNI, letraFmenu.getDNI(), 0);
+        fuenteColor.mensaje(txtRazonSocial, letraFmenu.getRazonSocial(), 0);
+        fuenteColor.mensaje(txtRUC, letraFmenu.getRuc(), 0);
+        fuenteColor.mensaje(txtDestino, letraFmenu.getDestino(), 0);
     }
 
     public void mostrarTabla() {
-
         modeloTabla.addColumn("Producto");
         modeloTabla.addColumn("Medida");
         modeloTabla.addColumn("Color");
@@ -111,8 +133,14 @@ public class Menu extends javax.swing.JFrame {
         comboColor = new javax.swing.JComboBox<>();
         cantidad = new javax.swing.JSpinner();
         btnAgregar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -219,11 +247,11 @@ public class Menu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
+            .addGap(0, 678, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGap(0, 847, Short.MAX_VALUE)
         );
 
         JTabbedPanel.addTab("", jPanel2);
@@ -237,6 +265,73 @@ public class Menu extends javax.swing.JFrame {
         jLabel4.setText("Razón Social");
 
         jLabel5.setText("RUC");
+
+        txtNombres.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombresFocusLost(evt);
+            }
+        });
+        txtNombres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNombresMouseClicked(evt);
+            }
+        });
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombresKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombresKeyTyped(evt);
+            }
+        });
+
+        txtApellidos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtApellidosFocusLost(evt);
+            }
+        });
+        txtApellidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtApellidosMouseClicked(evt);
+            }
+        });
+        txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyTyped(evt);
+            }
+        });
+
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
+        txtRazonSocial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtRazonSocialMouseClicked(evt);
+            }
+        });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
+
+        txtRUC.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRUCFocusLost(evt);
+            }
+        });
+        txtRUC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtRUCMouseClicked(evt);
+            }
+        });
+        txtRUC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRUCKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Producto");
 
@@ -272,6 +367,22 @@ public class Menu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tableMatriz);
 
         jLabel13.setText("Destino");
+
+        txtDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDestinoFocusLost(evt);
+            }
+        });
+        txtDestino.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDestinoMouseClicked(evt);
+            }
+        });
+        txtDestino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDestinoKeyTyped(evt);
+            }
+        });
 
         boxMedidas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -310,6 +421,22 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jLabel15.setText("D.N.I.");
+
+        txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDNIFocusLost(evt);
+            }
+        });
+        txtDNI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDNIMouseClicked(evt);
+            }
+        });
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIKeyTyped(evt);
+            }
+        });
 
         jButton1.setText("Limpiar");
         jButton1.setBorderPainted(false);
@@ -352,6 +479,8 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("jButton2");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -376,9 +505,12 @@ public class Menu extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAgregar)
-                            .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(21, 21, 21)
+                            .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(btnAgregar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel16)
@@ -423,9 +555,9 @@ public class Menu extends javax.swing.JFrame {
                                     .addComponent(txtDNI)))
                             .addComponent(jLabel12)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(14, 14, 14)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,10 +614,11 @@ public class Menu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(precioTotal))
-                        .addGap(18, 18, 18))
+                            .addComponent(precioTotal)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAgregar)
+                            .addComponent(jButton2))
                         .addGap(31, 31, 31)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -503,30 +636,73 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Buscar Cliente");
+
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel11.setText("Nombre");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(723, Short.MAX_VALUE))
         );
 
         JTabbedPanel.addTab("", jPanel5);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(279, Short.MAX_VALUE))
         );
 
         JTabbedPanel.addTab("", jPanel6);
@@ -699,11 +875,17 @@ public class Menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         borrarDatos();
+ 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-
+        fuenteColor.mensaje(txtNombres,letraFmenu.getNombre(), 0);
+        fuenteColor.mensaje(txtApellidos,letraFmenu.getApellido(), 0);
+        fuenteColor.mensaje(txtDNI,letraFmenu.getDNI(), 0);
+        fuenteColor.mensaje(txtRazonSocial,letraFmenu.getRazonSocial(), 0);
+        fuenteColor.mensaje(txtRUC,letraFmenu.getRuc(), 0);
+        fuenteColor.mensaje(txtDestino,letraFmenu.getDestino(), 0);
     }//GEN-LAST:event_jButton1MouseClicked
 
 
@@ -711,20 +893,21 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         asignarColor();
     }//GEN-LAST:event_comboColorItemStateChanged
-    
-    public void asignarColor(){
+
+    public void asignarColor() {
         String produc = (String) boxProducto.getSelectedItem();
-        switch(produc){
+        switch (produc) {
             case "Almohadas Punto":
-                almohadas.setColor(color1[comboColor.getSelectedIndex()]);break;
+                almohadas.setColor(color1[comboColor.getSelectedIndex()]);
+                break;
             case "Almohadas Alcolchadas":
                 almohadas.setColor(color2[comboColor.getSelectedIndex()]);
                 break;
-            case "Almohadas Canon":    
+            case "Almohadas Canon":
                 almohadas.setColor(color3[comboColor.getSelectedIndex()]);
                 break;
             case "Almohadas Popelina":
-            case "Almohadas Económica": 
+            case "Almohadas Económica":
                 almohadas.setColor(color4[comboColor.getSelectedIndex()]);
                 break;
         }
@@ -770,10 +953,11 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         almohadas.setNombreProducto(Producto[boxProducto.getSelectedIndex()]);
         almohadas.setMedida(medida[boxMedidas.getSelectedIndex()]);
-
-        //Agregar en la tabla
         String can = String.valueOf(cantidad.getValue());
-        String p = String.valueOf(almohadas.getPrecioUnitario());
+        Double c = (Double)cantidad.getValue();
+        Double pr = almohadas.getPrecioUnitario();
+        //Agregar en la tabla
+        String p = String.valueOf(c*pr);
         String informacion[] = new String[5];
         informacion[0] = almohadas.getNombreProducto();
         informacion[1] = almohadas.getMedida();
@@ -796,6 +980,113 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadComponentAdded
 
+    private void txtNombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombresMouseClicked
+        // TODO add your handling code here:
+        fuenteColor.click(txtNombres, letraFmenu.getNombre());
+    }//GEN-LAST:event_txtNombresMouseClicked
+
+    private void txtApellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidosMouseClicked
+        // TODO add your handling code here:
+        fuenteColor.click(txtApellidos, letraFmenu.getApellido());
+    }//GEN-LAST:event_txtApellidosMouseClicked
+
+    private void txtDNIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIMouseClicked
+        // TODO add your handling code here:
+        fuenteColor.click(txtDNI, letraFmenu.getDNI());
+    }//GEN-LAST:event_txtDNIMouseClicked
+
+
+    private void txtNombresFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombresFocusLost
+        // TODO add your handling code here:
+        fuenteColor.mensaje(txtNombres, letraFmenu.getNombre(), txtNombre.getText().trim().length());
+    }//GEN-LAST:event_txtNombresFocusLost
+
+
+    private void txtApellidosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtApellidosFocusLost
+        // TODO add your handling code here:
+        fuenteColor.mensaje(txtApellidos, letraFmenu.getApellido(), txtApellidos.getText().trim().length());
+    }//GEN-LAST:event_txtApellidosFocusLost
+
+    private void txtDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDNIFocusLost
+        // TODO add your handling code here:
+        fuenteColor.mensaje(txtDNI, letraFmenu.getDNI(),txtDNI.getText().trim().length());
+    }//GEN-LAST:event_txtDNIFocusLost
+
+    private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+        // TODO add your handling code here:
+        fuenteColor.mensaje(txtRazonSocial, letraFmenu.getRazonSocial(), txtRazonSocial.getText().trim().length());
+    }//GEN-LAST:event_txtRazonSocialFocusLost
+
+    private void txtRUCFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRUCFocusLost
+        // TODO add your handling code here:
+        fuenteColor.mensaje(txtRUC, letraFmenu.getRuc(), txtRUC.getText().trim().length());
+    }//GEN-LAST:event_txtRUCFocusLost
+
+    private void txtDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDestinoFocusLost
+        // TODO add your handling code here:
+        fuenteColor.mensaje(txtDestino, letraFmenu.getDestino(), txtDestino.getText().trim().length());
+    }//GEN-LAST:event_txtDestinoFocusLost
+
+    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
+        // TODO add your handling code here:
+        fuenteColor.click(txtNombres, letraFmenu.getNombre());
+    }//GEN-LAST:event_txtNombresKeyTyped
+
+    private void txtApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyTyped
+        // TODO add your handling code here:
+        fuenteColor.click(txtApellidos, letraFmenu.getApellido());
+    }//GEN-LAST:event_txtApellidosKeyTyped
+
+    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
+        // TODO add your handling code here:
+        fuenteColor.click(txtDNI, letraFmenu.getDNI());
+    }//GEN-LAST:event_txtDNIKeyTyped
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        // TODO add your handling code here:
+        fuenteColor.click(txtRazonSocial, letraFmenu.getRazonSocial());
+    }//GEN-LAST:event_txtRazonSocialKeyTyped
+
+
+    private void txtRazonSocialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRazonSocialMouseClicked
+        // TODO add your handling code here:
+        fuenteColor.click(txtRazonSocial, letraFmenu.getRazonSocial());
+    }//GEN-LAST:event_txtRazonSocialMouseClicked
+
+    private void txtRUCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRUCMouseClicked
+        // TODO add your handling code here:
+        fuenteColor.click(txtRUC, letraFmenu.getRuc());
+
+    }//GEN-LAST:event_txtRUCMouseClicked
+
+    private void txtRUCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRUCKeyTyped
+        // TODO add your handling code here:
+        fuenteColor.click(txtRUC, letraFmenu.getRuc());
+    }//GEN-LAST:event_txtRUCKeyTyped
+
+    private void txtDestinoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDestinoMouseClicked
+        // TODO add your handling code here:
+        fuenteColor.click(txtDestino, letraFmenu.getDestino());
+    }//GEN-LAST:event_txtDestinoMouseClicked
+
+    private void txtDestinoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDestinoKeyTyped
+        // TODO add your handling code here:
+        fuenteColor.click(txtDestino, letraFmenu.getDestino());
+    }//GEN-LAST:event_txtDestinoKeyTyped
+
+    private void txtNombresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyPressed
+        // TODO add your handling code here:
+        txtNombres.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, 
+                java.util.Collections.EMPTY_SET);
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
+            txtNombres.requestFocus();
+            txtNombres.setCaretPosition(0);
+        }
+    }//GEN-LAST:event_txtNombresKeyPressed
+
+    
+    
+    
     public void precioPorMedida() {
         String medida = (String) boxMedidas.getSelectedItem();
         String pro = (String) boxProducto.getSelectedItem();
@@ -904,10 +1195,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JSpinner cantidad;
     private javax.swing.JComboBox<String> comboColor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -920,6 +1213,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -927,6 +1221,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel precio;
     private javax.swing.JLabel precioTotal;
     private javax.swing.JTable tableMatriz;
