@@ -6,18 +6,21 @@ public class CredencialesUsuarios {
     protected int empleadoID;
     protected String user;
     protected String passWord;
+    protected String puesto;
     protected String estado; 
     
+    //Constructor
     public CredencialesUsuarios() {
     }
 
-    public CredencialesUsuarios(String user, String passWord,String estado) {
-        this.empleadoID = empleadoID;
-        this.user = user;
-        this.passWord = passWord;
-        this.estado = estado;
+    public String getPuesto() {
+        return puesto;
     }
 
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
+    
     public int getEmpleadoID() {
         return empleadoID;
     }

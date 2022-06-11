@@ -325,7 +325,7 @@ public class Login extends javax.swing.JFrame {
         cu.setEstado(estado);
         cu.setUser(user);
         cu.setPassWord(pass);
-
+        cu.setPuesto(puestos[boxPuesto.getSelectedIndex()]);
         lista.add(cu);
 
 
@@ -372,6 +372,7 @@ public class Login extends javax.swing.JFrame {
                 !cu.getPassWord().equals(mensaje.getPassWord())) {
             abrirMenu.setVisible(true);
             abrirMenu.txtEmpleado.setText(cu.getUser());
+            abrirMenu.lblPuesto.setText(puestos[boxPuesto.getSelectedIndex()]);
             this.dispose();
         }
 

@@ -1,37 +1,30 @@
 package DTO;
 public class Cliente extends Persona{
     //agregar provincia
-    protected String ubicacion;
-    protected int cantidadProducto;
+    protected String Direccion;
     protected String RUC;
     protected String razonSocial;
+    protected String provincia;
+    protected String correo;
+    protected String telefono;
+    
+    
+    
     
     public Cliente() {
     }
      
-    
-    public Cliente(String nombre , String apellido , String dni) {
-        super.nombre= nombre;
-        super.apellido = apellido;
-        super.DNI = dni;
+   
+
+    public String getDireccion() {
+        return Direccion;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public void setDireccion(String ubicacion) {
+        this.Direccion = ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public int getCantidadProducto() {
-        return cantidadProducto;
-    }
-
-    public void setCantidadProducto(int cantidadProducto) {
-        this.cantidadProducto = cantidadProducto;
-    }
-
+   
     public String getRUC() {
         return RUC;
     }
@@ -46,6 +39,30 @@ public class Cliente extends Persona{
 
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
     
     
