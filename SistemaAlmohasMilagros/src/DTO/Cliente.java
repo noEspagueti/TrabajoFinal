@@ -8,7 +8,7 @@ public class Cliente extends Persona{
     
     public Cliente() {
     }
-    
+     
     
     public Cliente(String nombre , String apellido , String dni) {
         super.nombre= nombre;
