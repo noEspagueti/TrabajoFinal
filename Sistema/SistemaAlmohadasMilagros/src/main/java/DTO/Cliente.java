@@ -1,5 +1,7 @@
 package DTO;
-public class Cliente extends Persona{
+
+public class Cliente extends Persona {
+
     //agregar provincia
     protected String Direccion;
     protected String RUC;
@@ -7,14 +9,9 @@ public class Cliente extends Persona{
     protected String provincia;
     protected String correo;
     protected String telefono;
-    
-    
-    
-    
+
     public Cliente() {
     }
-     
-   
 
     public String getDireccion() {
         return Direccion;
@@ -24,7 +21,6 @@ public class Cliente extends Persona{
         this.Direccion = ubicacion;
     }
 
-   
     public String getRUC() {
         return RUC;
     }
@@ -64,7 +60,5 @@ public class Cliente extends Persona{
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
-    
-    
+
 }

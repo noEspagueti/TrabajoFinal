@@ -112,6 +112,14 @@ public class Menu extends javax.swing.JFrame {
         btnVentas = new javax.swing.JButton();
         lblPuesto = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        NombreEmpleado = new javax.swing.JLabel();
+        apellidoEmpleado = new javax.swing.JLabel();
+        DniEmpleado = new javax.swing.JLabel();
+        telefonoEmpleado = new javax.swing.JLabel();
         JTabbedPanel = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -264,6 +272,30 @@ public class Menu extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Puesto:");
 
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Nombres:");
+
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Apellidos:");
+
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("DNI:");
+
+        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel33.setText("Telefono:");
+
+        NombreEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        NombreEmpleado.setText("jLabel34");
+
+        apellidoEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        apellidoEmpleado.setText("jLabel34");
+
+        DniEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        DniEmpleado.setText("jLabel35");
+
+        telefonoEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        telefonoEmpleado.setText("jLabel36");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -275,22 +307,38 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
+                .addGap(108, 108, 108)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(telefonoEmpleado))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtEmpleado))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPuesto)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPuesto)
+                            .addComponent(NombreEmpleado)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31)
+                            .addComponent(jLabel32))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DniEmpleado)
+                            .addComponent(apellidoEmpleado))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmpleado)
                     .addComponent(jLabel1))
@@ -298,7 +346,23 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPuesto)
                     .addComponent(jLabel19))
-                .addGap(76, 76, 76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(NombreEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(apellidoEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(DniEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(telefonoEmpleado))
+                .addGap(49, 49, 49)
                 .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btngregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,7 +372,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
                 .addComponent(btnSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1602,7 +1666,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel DniEmpleado;
     private javax.swing.JTabbedPane JTabbedPanel;
+    private javax.swing.JLabel NombreEmpleado;
+    private javax.swing.JLabel apellidoEmpleado;
     private javax.swing.JComboBox<String> boxBuscarMedida;
     private javax.swing.JComboBox<String> boxBuscarProduc;
     private javax.swing.JComboBox<String> boxBusquedaColor;
@@ -1646,6 +1713,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1675,6 +1746,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel precioTotal;
     private javax.swing.JTable tablaListaCliente;
     private javax.swing.JTable tableMatriz;
+    private javax.swing.JLabel telefonoEmpleado;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDNI;

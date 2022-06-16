@@ -2,6 +2,9 @@ package Datos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,5 +33,14 @@ public class Conexion {
 
         return conectar;
     }
-
+    
+    public void close(Connection c) throws SQLException{
+        c.close();
+    }
+    public void close(PreparedStatement ps) throws SQLException{
+        ps.close();
+    }
+    public void close(ResultSet rs) throws SQLException{
+        rs.close();
+    }
 }
