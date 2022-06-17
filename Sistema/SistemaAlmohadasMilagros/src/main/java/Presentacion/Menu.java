@@ -1,12 +1,18 @@
 package Presentacion;
 
 import DTO.Cliente;
+import DTO.Factura;
 import DTO.ProductoAlmohadas;
+import Datos.FacturaDAO;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -549,6 +555,11 @@ public class Menu extends javax.swing.JFrame {
 
         btnFactura.setText("Gererar Factura");
         btnFactura.setBorderPainted(false);
+        btnFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFacturaMouseClicked(evt);
+            }
+        });
         btnFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFacturaActionPerformed(evt);
@@ -1277,7 +1288,7 @@ public class Menu extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
         borrarDatos();
-        
+
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
@@ -1569,6 +1580,33 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         fuenteColor.mensaje(txtProvincia, letraFmenu.getProvincia(), txtProvincia.getText().trim().length());
     }//GEN-LAST:event_txtProvinciaFocusLost
+
+
+    private void btnFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFacturaMouseClicked
+        // TODO add your handling code here:
+        FacturaDAO fd = new FacturaDAO();
+
+        String tipoDoc = "Factura";
+        Factura f = new Factura();
+        int CodDoc = 1;
+        String Fecha = f.generarFecha(new Date());
+        
+        f.setFechaEmision(Fecha);
+        f.setTipoDocu(tipoDoc);
+        f.setCodigoVenta(CodDoc);
+        int contador = fd.cont++;
+        String OrdenRe = f.GenerarOrdenResmion(contador);
+        f.setOrdenRemision(OrdenRe);
+        
+        cliente.setRazonSocial(txtRazonSocial.getText());
+        cliente.setRUC(txtRUC.getText());
+        
+        try {
+            fd.insert(f, cliente);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de insertar datos", "Error", JOptionPane.ERROR);
+        }
+    }//GEN-LAST:event_btnFacturaMouseClicked
 
     public void precioPorMedida() {
         String medida = (String) boxMedidas.getSelectedItem();

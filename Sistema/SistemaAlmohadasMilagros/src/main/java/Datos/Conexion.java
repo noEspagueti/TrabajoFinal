@@ -1,5 +1,6 @@
 package Datos;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,34 +14,41 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
-    public Connection conectar = null;
-    public String usuario = "miguel";
-    public String contraseña = "123abc";
-    public String bd = "SistemaVentasAM";
-    public String ip = "localhost";
-    public String puerto = "1433";
+    public static String usuario = "miguel";
+    public static String contraseña = "123abc";
+    public static String bd = "SistemaVentasAM";
+    public static String ip = "localhost";
+    public static String puerto = "1433";
 
+    public static String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd;
     //String cadena = "jdbc:sqlserver://"+ip +":"+puerto+"/"+bd;
-    public Connection establecerConexion() {
 
+    public static Connection establecerConexion() {
+        Connection conectar = null;
         try {
-            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd;
+
             conectar = DriverManager.getConnection(cadena, usuario, contraseña);
-            JOptionPane.showMessageDialog(null, "se conecto correctamente a la base de datos");
+//            JOptionPane.showMessageDialog(null, "se conecto correctamente a la base de datos");
         } catch (Exception ex) {
             ex.printStackTrace(System.out);
         }
 
         return conectar;
     }
-    
-    public void close(Connection c) throws SQLException{
+
+    public static void close(Connection c) throws SQLException {
         c.close();
     }
-    public void close(PreparedStatement ps) throws SQLException{
+
+    public static void close(PreparedStatement ps) throws SQLException {
         ps.close();
     }
-    public void close(ResultSet rs) throws SQLException{
+
+     public static void close(CallableStatement cs) throws SQLException {
+        cs.close();
+    }
+    
+    public static void close(ResultSet rs) throws SQLException {
         rs.close();
     }
 }

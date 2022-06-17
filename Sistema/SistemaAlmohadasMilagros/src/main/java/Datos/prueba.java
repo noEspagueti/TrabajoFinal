@@ -8,12 +8,16 @@ public class prueba {
     public static void main(String[] args) {
 //        Conexion c = new Conexion();
 //        c.establecerConexion();
-        
+////        
+//        Conexion.establecerConexion();
         Factura f = new Factura();
-        
-        System.out.println( f.generarCodigo());
+
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(f.generarCodigo());
+//        }
+
        String fecha = f.generarFecha(new Date());
         System.out.println(fecha);
     }
-    
+
 }

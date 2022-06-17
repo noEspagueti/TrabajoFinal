@@ -35,7 +35,7 @@ create table Empleado(
 
 	
 	create table DocumentoVenta(
-		CodDoc char(5),
+		CodDoc int,
 		TipoDoc char(7),
 		OrdenRemision varchar(11),
 		RazonSocial varchar(50),
@@ -44,14 +44,17 @@ create table Empleado(
 		primary key(CodDoc)
 	);
 
+
+
 	create table Ordenes (
 	 OrdenID int identity(1,1),
 	 DNI_Cliente char(8),
 	 EmpleadoID int ,
-	 CodDoc char(5)
+	 CodDoc int,
 	 primary key(OrdenID),
 	 foreign key(DNI_Cliente)references Cliente(DNI),
-	 foreign key (CodDoc) references DocumentoVenta(CodDoc)
+	 foreign key (CodDoc) references DocumentoVenta(CodDoc),
+	 foreign key (EmpleadoID) references Empleado(EmpleadoID)
 	);
 
 
@@ -77,3 +80,12 @@ create table Empleado(
 		foreign key (ProductoID) references Productos(ProductoID)
 	);
 
+
+
+	create table inventario (
+		IDinventario int identity(1,1),
+		ProductoID int ,
+		Cant_Stock int,
+		primary key(IDinventario),
+		foreign key (ProductoID) references Productos(ProductoID)
+	);
