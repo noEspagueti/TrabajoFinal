@@ -3,6 +3,7 @@ package Presentacion;
 import DTO.Cliente;
 import DTO.Factura;
 import DTO.ProductoAlmohadas;
+import Datos.ClienteDAO;
 import Datos.FacturaDAO;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -31,7 +32,7 @@ public class Menu extends javax.swing.JFrame {
     Cliente cliente = new Cliente();
     ProductoAlmohadas almohadas = new ProductoAlmohadas();
     DefaultTableModel modeloTabla = new DefaultTableModel();
-
+    int contador = 0;
     FuenteColor fuenteColor;
     LetraFantasmaMenu letraFmenu;
 
@@ -108,13 +109,11 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btnMenu = new javax.swing.JButton();
         btngregarPedido = new javax.swing.JButton();
         btnSalida = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtEmpleado = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
         lblPuesto = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -127,7 +126,6 @@ public class Menu extends javax.swing.JFrame {
         DniEmpleado = new javax.swing.JLabel();
         telefonoEmpleado = new javax.swing.JLabel();
         JTabbedPanel = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -174,17 +172,6 @@ public class Menu extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaListaCliente = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        boxBuscarMedida = new javax.swing.JComboBox<>();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        boxBusquedaColor = new javax.swing.JComboBox<>();
-        btnBUSCAR = new javax.swing.JButton();
-        boxBuscarProduc = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -205,20 +192,6 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
-
-        btnMenu.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMenu.setText("Ingreso de Materiales");
-        btnMenu.setBorderPainted(false);
-        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMenuMouseEntered(evt);
-            }
-        });
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
 
         btngregarPedido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btngregarPedido.setText("Agregar pedidos");
@@ -252,14 +225,6 @@ public class Menu extends javax.swing.JFrame {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jButton4.setText("Lista de Inventario");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
             }
         });
 
@@ -306,11 +271,9 @@ public class Menu extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
             .addComponent(btngregarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(108, 108, 108)
@@ -339,7 +302,7 @@ public class Menu extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(DniEmpleado)
                             .addComponent(apellidoEmpleado))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,37 +331,18 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(telefonoEmpleado))
-                .addGap(49, 49, 49)
-                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(86, 86, 86)
                 .addComponent(btngregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(180, 180, 180)
                 .addComponent(btnSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         JTabbedPanel.setBackground(new java.awt.Color(255, 255, 255));
         JTabbedPanel.setEnabled(false);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 841, Short.MAX_VALUE)
-        );
-
-        JTabbedPanel.addTab("", jPanel2);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setAlignmentX(0.0F);
@@ -942,90 +886,6 @@ public class Menu extends javax.swing.JFrame {
 
         JTabbedPanel.addTab("", jPanel5);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
-
-        jLabel17.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel17.setText("Nombre del Producto");
-
-        jLabel18.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel18.setText("Inventario");
-
-        boxBuscarMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel23.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel23.setText("Medidas");
-
-        jLabel24.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel24.setText("Color");
-
-        boxBusquedaColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnBUSCAR.setText("Buscar");
-
-        boxBuscarProduc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBUSCAR)
-                    .addComponent(jLabel18)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(boxBuscarMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxBusquedaColor, 0, 188, Short.MAX_VALUE)
-                            .addComponent(boxBuscarProduc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel18)
-                .addGap(33, 33, 33)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(boxBuscarProduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxBuscarMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(boxBusquedaColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(btnBUSCAR)
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
-        );
-
-        JTabbedPanel.addTab("", jPanel6);
-
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel25.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
@@ -1149,11 +1009,6 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseEntered
-        // TODO add your handling code here:    
-
-    }//GEN-LAST:event_btnMenuMouseEntered
-
     private void btnSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalidaMouseClicked
         // TODO add your handling code here:
         Login login = new Login();
@@ -1161,14 +1016,9 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalidaMouseClicked
 
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        // TODO add your handling code here:
-        JTabbedPanel.setSelectedIndex(0);
-    }//GEN-LAST:event_btnMenuActionPerformed
-
     private void btngregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngregarPedidoActionPerformed
         // TODO add your handling code here:
-        JTabbedPanel.setSelectedIndex(1);
+        JTabbedPanel.setSelectedIndex(0);
 
     }//GEN-LAST:event_btngregarPedidoActionPerformed
 
@@ -1267,13 +1117,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        JTabbedPanel.setSelectedIndex(2);
+        JTabbedPanel.setSelectedIndex(1);
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        JTabbedPanel.setSelectedIndex(3);
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
         // TODO add your handling code here:
@@ -1531,7 +1376,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         // TODO add your handling code here:
-        JTabbedPanel.setSelectedIndex(4);
+        JTabbedPanel.setSelectedIndex(2);
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
@@ -1581,28 +1426,43 @@ public class Menu extends javax.swing.JFrame {
         fuenteColor.mensaje(txtProvincia, letraFmenu.getProvincia(), txtProvincia.getText().trim().length());
     }//GEN-LAST:event_txtProvinciaFocusLost
 
-
+    
+    public void sqlCliente() throws SQLException{
+    
+        cliente.setNombre(txtNombre.getText());
+        cliente.setApellido(txtApellidos.getText());
+        cliente.setDNI(txtDNI.getText());
+        cliente.setTelefono(txtTelefono.getText());
+        cliente.setProvincia(txtProvincia.getText());
+        cliente.setDireccion(txtDestino.getText());
+        cliente.setCorreo(txtCorreo.getText());
+        ClienteDAO cdao = new ClienteDAO();
+        cdao.insertarCliente(cliente);
+    }
+    
     private void btnFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFacturaMouseClicked
         // TODO add your handling code here:
         FacturaDAO fd = new FacturaDAO();
 
         String tipoDoc = "Factura";
         Factura f = new Factura();
-        int CodDoc = 1;
+        String CodDoc = f.generarCodigo();
         String Fecha = f.generarFecha(new Date());
-        
+
         f.setFechaEmision(Fecha);
         f.setTipoDocu(tipoDoc);
         f.setCodigoVenta(CodDoc);
-        int contador = fd.cont++;
+        
+        contador++;
         String OrdenRe = f.GenerarOrdenResmion(contador);
         f.setOrdenRemision(OrdenRe);
-        
+
         cliente.setRazonSocial(txtRazonSocial.getText());
         cliente.setRUC(txtRUC.getText());
-        
+
         try {
             fd.insert(f, cliente);
+            sqlCliente();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de insertar datos", "Error", JOptionPane.ERROR);
         }
@@ -1708,26 +1568,20 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTabbedPane JTabbedPanel;
     private javax.swing.JLabel NombreEmpleado;
     private javax.swing.JLabel apellidoEmpleado;
-    private javax.swing.JComboBox<String> boxBuscarMedida;
-    private javax.swing.JComboBox<String> boxBuscarProduc;
-    private javax.swing.JComboBox<String> boxBusquedaColor;
     private javax.swing.JComboBox<String> boxMedidas;
     private javax.swing.JComboBox<String> boxProducto;
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBUSCAR;
     private javax.swing.JButton btnBoleta;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarTotal;
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSalida;
     private javax.swing.JButton btnVentas;
     private javax.swing.JButton btngregarPedido;
     private javax.swing.JSpinner cantidad;
     private javax.swing.JComboBox<String> comboColor;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1736,15 +1590,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1762,19 +1612,15 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCantidadVentas;
     private javax.swing.JLabel lblFechaActual;

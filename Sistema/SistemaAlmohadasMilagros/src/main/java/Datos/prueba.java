@@ -15,9 +15,10 @@ public class prueba {
 //        for (int i = 0; i < 10; i++) {
 //            System.out.println(f.generarCodigo());
 //        }
-
-       String fecha = f.generarFecha(new Date());
-        System.out.println(fecha);
+    
+        System.out.println(f.GenerarOrdenResmion(0));
+//       String fecha = f.generarFecha(new Date());
+//        System.out.println(fecha);
     }
 
 }

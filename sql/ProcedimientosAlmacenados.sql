@@ -7,7 +7,7 @@ use SistemaVentasAM
 
 CREATE PROCEDURE insertarDocumento
 (
-	@Cod int,
+	@Cod varchar(6),
 	@TipoDoc char(7),
 	@OrdenRemision varchar(11),
 	@RazonSocial varchar(50),
@@ -20,16 +20,40 @@ AS BEGIN
 END;
 
 
-exec insertarDocumento 1,'Factura','T001-000001','Mayoristas Almohadas S.A.C.','12345678977','2022-06-16';
+
+
+select * from DocumentoVenta
+order by OrdenRemision
+
+select * from Cliente
+
+
+CREATE PROCEDURE insertarCliente 
+(
+	@dni varchar(8),
+	@nom varchar(30),
+	@ap varchar(30),
+	@tele char(9),
+	@Correo varchar(30),
+	@Direccion varchar(50),
+	@Provincia varchar(35)
+	) AS BEGIN
+		INSERT INTO Cliente
+		VALUES (@dni,@nom,@ap,@tele,@Correo,@Direccion,@Provincia);
+	END;
 
 
 
+	select * from UsuarioEmpleado
 
-INSERT INTO DocumentoVenta 
-values ('a','Factura','T001-000001','Mayoristas Almohadas S.A.C.','12345678977','2022-06-16')
+	insert into UsuarioEmpleado
+	values(12,'admin1','admin'),(13,'admin2','admin2'),(14,'admin3','admin3')
 
 
-select * from DocumentoVenta;
+	CREATE PROCEDURE mostrarUsuarios 
+		AS BEGIN 
+		 SELECT a.Usuario , a.Password FROM UsuarioEmpleado a;
+	END;
 
-delete from DocumentoVenta
-where CodDoc = 1
+	exec mostrarUsuarios
+

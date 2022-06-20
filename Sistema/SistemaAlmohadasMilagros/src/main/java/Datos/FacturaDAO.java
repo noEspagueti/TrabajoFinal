@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class FacturaDAO implements ConsultasImplements {
 
-    public int cont = 1;
+
 
     //INSERTAR DATOS A FACTURAS
     public void insert(Factura f, Cliente c) throws SQLException {
@@ -22,7 +22,7 @@ public class FacturaDAO implements ConsultasImplements {
         try {
             con = Conexion.establecerConexion();
             cs = con.prepareCall(INSERTARFACTURA_SP);
-            cs.setInt(1, f.getCodigoVenta());
+            cs.setString(1, f.getCodigoVenta());
             cs.setString(2, f.getTipoDocu());
             cs.setString(3, f.getOrdenRemision());
             cs.setString(4, c.getRazonSocial());
@@ -38,8 +38,8 @@ public class FacturaDAO implements ConsultasImplements {
             e.printStackTrace(System.out);
             JOptionPane.showMessageDialog(null, "No se pudo registrar");
         } finally {
-            Conexion.close(con);
             Conexion.close(cs);
+            Conexion.close(con);
         }
 
     }
