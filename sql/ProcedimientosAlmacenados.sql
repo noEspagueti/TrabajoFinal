@@ -57,3 +57,11 @@ CREATE PROCEDURE insertarCliente
 
 	exec mostrarUsuarios
 
+	use SistemaVentasAM
+
+	select * from UsuarioEmpleado
+
+
+	select * from Cliente
+
+	select * from DocumentoVenta
