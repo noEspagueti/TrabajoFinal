@@ -2,18 +2,19 @@ package DTO;
 
 public class ProductoAlmohadas {
 
-    protected int idProducto;
+    protected int cod;
     protected String nombreProducto;
     protected String medida;
     protected String color;
     protected Double precioUnitario;
+    protected Double precioTotal;
     protected int cantidad;
 
     public ProductoAlmohadas() {
     }
 
-    public ProductoAlmohadas(int idProducto, String nombreProducto, String medida, String color, double precioUnitario) {
-        this.idProducto = idProducto;
+    public ProductoAlmohadas(String nombreProducto, String medida, String color, double precioUnitario) {
+
         this.nombreProducto = nombreProducto;
         this.medida = medida;
         this.color = color;
@@ -26,14 +27,6 @@ public class ProductoAlmohadas {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
     }
 
     public String getNombreProducto() {
@@ -69,4 +62,21 @@ public class ProductoAlmohadas {
         this.precioUnitario = precioUnitario;
     }
 
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
+    public Double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(Double precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+    
+    
 }

@@ -1,6 +1,8 @@
 package Vista;
 
+import Controlador.EmpleadoCRUD;
 import Controlador.inicioSesion;
+import Controlador.sesionCRUD;
 import Modelo.Conexion;
 import DTO.CredencialesUsuarios;
 import static Modelo.ConsultasImplements.MOSTRARUSUARIOS_SP;
@@ -27,9 +29,8 @@ public class Login extends javax.swing.JFrame {
 
     public static List<CredencialesUsuarios> lista = new ArrayList<>();
     CredencialesUsuarios cu = new CredencialesUsuarios();
-    public String[] puestos = {"Gerente de Operaciones", "Vendedor"};
     public int c;
-
+    
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -42,13 +43,9 @@ public class Login extends javax.swing.JFrame {
         txtPassword.setCaretPosition(0);
         iniciar();
         iniciarPassword();
-        asignarPuesto();
     }
 
-    public void asignarPuesto() {
-        DefaultComboBoxModel puesto = new DefaultComboBoxModel(puestos);
-        boxPuesto.setModel(puesto);
-    }
+   
 
     public void iniciar() {
         fuenteColor.mensaje(txtUsuario, mensaje.getUsuario(), 0);
@@ -87,7 +84,6 @@ public class Login extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        boxPuesto = new javax.swing.JComboBox<>();
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Miguel\\Desktop\\trabajoFinal\\Recursos\\img\\Login-03.jpg")); // NOI18N
 
@@ -249,8 +245,6 @@ public class Login extends javax.swing.JFrame {
 
         jLabel4.setText("Creado y diseñado por Miguel A.Silva ");
 
-        boxPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", " " }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -263,18 +257,16 @@ public class Login extends javax.swing.JFrame {
                         .addGap(139, 139, 139))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(123, 123, 123)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtUsuario)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(29, 29, 29)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtPassword)
-                                .addComponent(jSeparator1)
-                                .addComponent(jSeparator2))
-                            .addComponent(boxPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtUsuario)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPassword)
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(204, 204, 204))
@@ -292,9 +284,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(boxPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(114, 114, 114)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -327,7 +317,7 @@ public class Login extends javax.swing.JFrame {
         cu.setEstado(estado);
         cu.setUser(user);
         cu.setPassWord(pass);
-        cu.setPuesto(puestos[boxPuesto.getSelectedIndex()]);
+      
         lista.add(cu);
 
 
@@ -367,64 +357,28 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtPasswordMouseClicked
 
-//    public void comprobarUsuario(String user, String pass) throws SQLException {
-//        Connection co = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        Menu abrirMenu = new Menu();
-//        try {
-//            co = Conexion.establecerConexion();
-//            ps = co.prepareStatement(MOSTRARUSUARIOS_SP);
-//            rs = ps.executeQuery();
-//            int flag = 0;
-//            while (rs.next()) {
-//                if (user.trim().equals(rs.getString(1)) && pass.trim().equals(rs.getString(2))) {
-//                    flag = 1;
-//                    abrirMenu.setVisible(true);
-//                    this.dispose();
-//                }
-//            }
-//            if (flag == 1) {
-//                JOptionPane.showMessageDialog(null, "Bienvenidos");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "No existe esta cuenta", "Error", JOptionPane.WARNING_MESSAGE);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace(System.out);
-//            JOptionPane.showMessageDialog(null, "Error de conexion", "Error", JOptionPane.ERROR);
-//        } finally {
-//            Conexion.close(rs);
-//            Conexion.close(ps);
-//            Conexion.close(co);
-//        }
-//    }
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         // TODO add your handling code here:
-
+//        EmpleadoCRUD e = new EmpleadoCRUD();
+//        String user1 = "admin1";
+//        String user2 = "admin2";
+//        String user3 = "admin3";
+        
         if (!cu.getUser().equals(mensaje.getUsuario())
                 && !cu.getPassWord().equals(mensaje.getPassWord())) {
-            
-            inicioSesion i = new inicioSesion();
-            
+
             try {
-                i.iniciarSesion(cu.getUser(), cu.getPassWord(),this );
-                
-                } catch (SQLException ex) {
+                sesionCRUD iniciar = new sesionCRUD();
+                iniciar.iniciarSesion(txtUsuario.getText(),txtPassword.getText(), this);
+               
+            } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            try {
-//                comprobarUsuario(cu.getUser(), cu.getPassWord());
-//                                        
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            
         }
 
+        
+        
         if (cu.getUser().equals(mensaje.getUsuario()) || cu.getUser().equals("")) {
             JOptionPane.showMessageDialog(null, "Se debe ingresar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
 
@@ -432,27 +386,8 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Se debe ingresar una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
 
         }
-        
-        
-        
-        
-        //            try {
-//                usuarioEmpleadoDAO us = new usuarioEmpleadoDAO();
-//                us.comprobarUsuario(cu.getUser(), cu.getPassWord());
-//               
-//                    abrirMenu.setVisible(true);
-//                    abrirMenu.txtEmpleado.setText(cu.getUser());
-//                    abrirMenu.lblPuesto.setText(puestos[boxPuesto.getSelectedIndex()]);
-//                    this.dispose();
-//                
-//            } catch (SQLException ex) {
-//                ex.printStackTrace(System.out);
-//            }
 
-//            abrirMenu.setVisible(true);
-//            abrirMenu.txtEmpleado.setText(cu.getUser());
-//            abrirMenu.lblPuesto.setText(puestos[boxPuesto.getSelectedIndex()]);
-//            this.dispose();
+
     }//GEN-LAST:event_btnIngresarMouseClicked
 
     private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
@@ -565,7 +500,6 @@ public class Login extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxPuesto;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;

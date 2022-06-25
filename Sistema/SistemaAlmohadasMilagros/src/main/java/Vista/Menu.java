@@ -5,7 +5,11 @@ import DTO.Cliente;
 import DTO.Factura;
 import DTO.ProductoAlmohadas;
 import Modelo.ClienteDAO;
+import Controlador.EmpleadoCRUD;
+import Controlador.detalleOrdenCRUD;
+import Controlador.ordenCRUD;
 import Modelo.FacturaDAO;
+import Modelo.productoDAO;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -27,16 +31,23 @@ public class Menu extends javax.swing.JFrame {
     String color2[] = {"Azul", "Blanco", "Plomo", "Naranja"};
     String color3[] = {"Blanco entero", "Estampado Zebra"};
     String color4[] = {"Amarillo", "Celeste", "Naranja", "Mostaza", "Azul", "Azul Oscuro", "Marron claro", "Marron Oscuro"};
-    Double precioPorUnidad[] = {12.0, 15.0, 17.0, 20.0, 25.0, 27.0, 10.0, 12.0, 15.0, 8.0,
-        9.0, 10.0};
-    List<ProductoAlmohadas> listaProducto = new ArrayList<>();
+    Double precioPorUnidad[] = {12.0, 15.0, 17.0, 20.0, 25.0, 27.0, 10.0, 12.0, 15.0, 8.0, 9.0, 10.0};
+
+//    EmpleadoCRUD e = new EmpleadoCRUD();
     Cliente cliente = new Cliente();
     ProductoAlmohadas almohadas = new ProductoAlmohadas();
     DefaultTableModel modeloTabla = new DefaultTableModel();
     int contador = 0;
     FuenteColor fuenteColor;
     LetraFantasmaMenu letraFmenu;
+    productoDAO pdao = new productoDAO();
+    String informacion[] = new String[5];
+    detalleOrdenCRUD dOr = new detalleOrdenCRUD();
 
+    
+    ArrayList<Integer> codProductos = new ArrayList<>();
+    ArrayList<Integer> cantidadPro = new ArrayList<>();
+    ArrayList<Double> PrecioToPro = new ArrayList<>();
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -68,6 +79,13 @@ public class Menu extends javax.swing.JFrame {
         txtProvincia.setCaretPosition(0);
         txtTelefono.setCaretPosition(0);
         iniciar();
+//        try {
+//            e.mostrarDatos(DniEmpleado,NombreEmpleado,apellidoEmpleado,puestoEmpleado,telefonoEmpleado,txtEmpleado);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+
     }
 
     public void iniciar() {
@@ -89,7 +107,7 @@ public class Menu extends javax.swing.JFrame {
         modeloTabla.addColumn("Cantidad");
         modeloTabla.addColumn("Precio");
         tableMatriz.setModel(modeloTabla);
-        actualizarTabla();
+
     }
 
     //Datos del cliente
@@ -116,7 +134,7 @@ public class Menu extends javax.swing.JFrame {
         txtEmpleado = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
-        lblPuesto = new javax.swing.JLabel();
+        puestoEmpleado = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -173,6 +191,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaListaCliente = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -192,7 +211,7 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setBackground(new java.awt.Color(51, 153, 255));
 
         btngregarPedido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btngregarPedido.setText("Agregar pedidos");
@@ -237,9 +256,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        lblPuesto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        lblPuesto.setForeground(new java.awt.Color(255, 255, 255));
-        lblPuesto.setText("Gerente de Operaciones");
+        puestoEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        puestoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
+        puestoEmpleado.setText("Gerente de Operaciones");
 
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Puesto:");
@@ -257,15 +276,19 @@ public class Menu extends javax.swing.JFrame {
         jLabel33.setText("Telefono:");
 
         NombreEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        NombreEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         NombreEmpleado.setText("jLabel34");
 
         apellidoEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        apellidoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         apellidoEmpleado.setText("jLabel34");
 
         DniEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        DniEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         DniEmpleado.setText("jLabel35");
 
         telefonoEmpleado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        telefonoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         telefonoEmpleado.setText("jLabel36");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -293,7 +316,7 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(jLabel19))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPuesto)
+                            .addComponent(puestoEmpleado)
                             .addComponent(NombreEmpleado)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +337,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPuesto)
+                    .addComponent(puestoEmpleado)
                     .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -846,7 +869,7 @@ public class Menu extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel11.setText("Buscar");
+        jLabel11.setText("DNI:");
 
         tablaListaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -861,6 +884,8 @@ public class Menu extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tablaListaCliente);
 
+        jButton1.setText("Buscar");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -872,8 +897,9 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(48, 48, 48)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -885,7 +911,9 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                .addGap(28, 28, 28)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(202, Short.MAX_VALUE))
         );
@@ -1117,9 +1145,6 @@ public class Menu extends javax.swing.JFrame {
         precioTotal.setText("S/. " + p);
     }
 
-    public void actualizarTabla() {
-
-    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -1127,7 +1152,6 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_btnFacturaActionPerformed
 
@@ -1212,13 +1236,28 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_boxMedidasItemStateChanged
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+
         // TODO add your handling code here:
         asignarColor();
+
     }//GEN-LAST:event_btnAgregarMouseClicked
+
+    public void actulizarDatos() {
+        boxMedidas.setSelectedIndex(0);
+        boxProducto.setSelectedIndex(0);
+        precio.setText("S/. " + String.valueOf(precioPorUnidad[0]));
+        boxMedidas.setSelectedIndex(0);
+        Double in = 1d;
+        cantidad.setValue(in);
+        precioT();
+    }
+
+    int cod = 0;
 
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+
         almohadas.setNombreProducto(Producto[boxProducto.getSelectedIndex()]);
         almohadas.setMedida(medida[boxMedidas.getSelectedIndex()]);
         String can = String.valueOf(cantidad.getValue());
@@ -1226,21 +1265,27 @@ public class Menu extends javax.swing.JFrame {
         Double pr = almohadas.getPrecioUnitario();
         //Agregar en la tabla
         String p = String.valueOf(c * pr);
-        String informacion[] = new String[5];
         informacion[0] = almohadas.getNombreProducto();
         informacion[1] = almohadas.getMedida();
         informacion[2] = almohadas.getColor();
         informacion[3] = can;
         informacion[4] = p;
+        try {
+            cod = pdao.idPro();
+            cod++;
+            almohadas.setCod(cod);
+            
+            codProductos.add(cod);
+            cantidadPro.add(1);
+            PrecioToPro.add(c*pr);
+            for (int i = 0; i < 1; i++) {
+                pdao.insertarRegistro(almohadas);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
         modeloTabla.addRow(informacion);
-
-        //Desaparecer
-        boxProducto.setSelectedIndex(0);
-        precio.setText("S/. " + String.valueOf(precioPorUnidad[0]));
-        boxMedidas.setSelectedIndex(0);
-        Double in = 1d;
-        cantidad.setValue(in);
-        precioT();
+        actulizarDatos();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -1435,28 +1480,37 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFacturaMouseClicked
         // TODO add your handling code here:
-       
+
         DocumentoVentaCRUD control = new DocumentoVentaCRUD();
+        
         try {
+            Double c = (Double) cantidad.getValue();
+            Double pr = almohadas.getPrecioUnitario();
+            double precioTotal = c * pr;
             control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
-            control.insertarDatos(cliente, txtRazonSocial, txtRUC,"Factura");
-          } catch (SQLException ex) {
+            control.insertarDatos(cliente, txtRazonSocial, txtRUC, "Boleta", txtDNI,codProductos,cantidadPro,PrecioToPro);
+        } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-                       
-      
+        }
+
+
     }//GEN-LAST:event_btnFacturaMouseClicked
 
     private void btnBoletaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBoletaMouseClicked
         // TODO add your handling code here:
-         DocumentoVentaCRUD control = new DocumentoVentaCRUD();
-        try {
-            control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
-            control.insertarDatos(cliente, txtRazonSocial, txtRUC,"Boleta");
-          } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        DocumentoVentaCRUD control = new DocumentoVentaCRUD();
         
+        
+        try {
+            Double c = (Double) cantidad.getValue();
+            Double pr = almohadas.getPrecioUnitario();
+            double precioTotal = c * pr;
+            control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
+            control.insertarDatos(cliente, txtRazonSocial, txtRUC, "Boleta", txtDNI,codProductos,cantidadPro,PrecioToPro);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnBoletaMouseClicked
 
     public void precioPorMedida() {
@@ -1555,10 +1609,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel DniEmpleado;
+    public javax.swing.JLabel DniEmpleado;
     private javax.swing.JTabbedPane JTabbedPanel;
-    private javax.swing.JLabel NombreEmpleado;
-    private javax.swing.JLabel apellidoEmpleado;
+    public javax.swing.JLabel NombreEmpleado;
+    public javax.swing.JLabel apellidoEmpleado;
     private javax.swing.JComboBox<String> boxMedidas;
     private javax.swing.JComboBox<String> boxProducto;
     private javax.swing.JButton btnAgregar;
@@ -1572,6 +1626,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btngregarPedido;
     private javax.swing.JSpinner cantidad;
     private javax.swing.JComboBox<String> comboColor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1615,18 +1670,18 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCantidadVentas;
     private javax.swing.JLabel lblFechaActual;
-    public static javax.swing.JLabel lblPuesto;
     private javax.swing.JLabel lblTotalVentas;
     private javax.swing.JLabel precio;
     private javax.swing.JLabel precioTotal;
+    public javax.swing.JLabel puestoEmpleado;
     private javax.swing.JTable tablaListaCliente;
     private javax.swing.JTable tableMatriz;
-    private javax.swing.JLabel telefonoEmpleado;
+    public javax.swing.JLabel telefonoEmpleado;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDestino;
-    public static javax.swing.JLabel txtEmpleado;
+    public javax.swing.JLabel txtEmpleado;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtProvincia;
     private javax.swing.JTextField txtRUC;
