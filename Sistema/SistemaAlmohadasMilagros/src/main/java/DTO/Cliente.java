@@ -13,6 +13,18 @@ public class Cliente extends Persona {
     public Cliente() {
     }
 
+    public Cliente(String dni,String nombre, String apellido,String telefono,String correo,String direccion,String provincia) {
+        this.Direccion = direccion;
+        this.provincia = provincia;
+        this.correo = correo;
+        this.telefono = telefono;
+        super.nombre= nombre;
+        super.apellido = apellido;
+        super.DNI = dni;
+    }
+
+    
+    
     public String getDireccion() {
         return Direccion;
     }

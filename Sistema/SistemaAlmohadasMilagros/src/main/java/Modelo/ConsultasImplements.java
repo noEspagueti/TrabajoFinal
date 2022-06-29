@@ -8,4 +8,7 @@ public interface ConsultasImplements {
     String INSERTARDATOSPRODUCTO_SP ="{call insertarRegistro(?,?,?,?,?)}";
     String INSERTARORDENES_SP ="{call ingresarOrden(?,?,?,?)}";
     String INSERTARDETALLEORDENES_SP ="{call insertarDetalleOrdenes(?,?,?,?)}";
+    String ACTUALIZARCLIENTE_SP ="{call actualizarCliente (?,?,?,?,?,?,?)}";
+    String ELIMINARPRODUCTO_SP ="{call eliminarProducto (?)}";
+
 }

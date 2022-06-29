@@ -20,12 +20,13 @@ import javax.swing.JOptionPane;
  * @author Miguel
  */
 public class sesionCRUD {
-    
+
+    Menu abrirMenu = new Menu();
+
     public void iniciarSesion(String user, String pass, JFrame a) throws SQLException {
         Connection co = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Menu abrirMenu = new Menu();
         EmpleadoCRUD em = new EmpleadoCRUD();
         try {
             co = Conexion.establecerConexion();
@@ -37,7 +38,7 @@ public class sesionCRUD {
                     flag = 1;
                     abrirMenu.setVisible(true);
                     if (user.trim().equals("admin1")) {
-                        
+
                         for (int i = 0; i < em.mostrarDatos().size(); i++) {
                             if (i == 0) {
                                 abrirMenu.NombreEmpleado.setText(em.mostrarDatos().get(0).getNombre());
@@ -48,15 +49,15 @@ public class sesionCRUD {
                                 abrirMenu.telefonoEmpleado.setText(em.mostrarDatos().get(0).getTel());
 
                             }
-                                                   }
-                        
+                        }
+
                     }
                     a.setVisible(false);
-                    
+
                 }
             }
             if (flag == 1) {
-                JOptionPane.showMessageDialog(null, "Bienvenidos");
+                JOptionPane.showMessageDialog(null, "Bienvenido");
             } else {
                 JOptionPane.showMessageDialog(null, "No existe esta cuenta", "Error", JOptionPane.WARNING_MESSAGE);
             }

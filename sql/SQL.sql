@@ -102,7 +102,7 @@ add  FechaNacimiento date
 
 	create table VentasDiarias(
 		IDVenta int  not null,
-		VentaTotalDiaria money not null,
+		VentaTotalDiaria int not null,
 		fecha date not null,
 		primary key(IDVenta)
 	);
@@ -111,8 +111,8 @@ add  FechaNacimiento date
 
 	create table ReporteEmpleado (
 		IDReporte int not null,
-		CantidadVentasEmpleados money null,
-		CantidadVendidas int null,
+		CantidadVentasEmpleados int null,
+		CantidadVendidas money null,
 		primary key(IDReporte)
 	);
 

@@ -207,3 +207,64 @@ create procedure insertarDetalleOrdenes
 insert into detalleOrdenes
 	values(@ordenId,@proID,@cantidad,@preTotal);
 end;
+
+
+create procedure insertarVentaDiaria
+(
+	@idVen int,
+	@ventaTotal money,
+	@fecha date
+)AS BEGIN
+ INSERT INTO VentasDiarias
+ values(@idVen,@ventaTotal,@fecha);
+ END;
+
+
+
+ create procedure insertarReporteEmpleado
+ (
+ @idReport int,
+ @cantidadVentaporEmpleado int,
+ @cantidadVendidad money
+ ) as begin
+ INSERT INTO ReporteEmpleado
+	VALUES(@idReport,@cantidadVentaporEmpleado,@cantidadVendidad);
+	END;
+
+
+
+
+ select * from VentasDiarias
+ select * from ReporteEmpleado
+ select * from DetalleVentaReporte
+
+ select a.EmpleadoID,c.PrecioTotal,c.ProductoID, d.fechaEmision from Empleado a
+ inner join Ordenes b on(a.EmpleadoID = b.EmpleadoID)
+ inner join DocumentoVenta d on(d.CodDoc = b.CodDoc)
+ inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+
+
+ exec insertarVentaDiaria 6,2,'2022-06-27'
+ exec insertarReporteEmpleado 4,2,680.00
+ insert into DetalleVentaReporte
+ values(6,4,1)
+
+
+ go
+
+
+
+	select * from Productos
+
+	CREATE PROCEDURE eliminarProducto
+	(
+		@idPro int
+	)
+	AS BEGIN 
+	DELETE Productos
+	WHERE ProductoID = @idPro;
+	END;
+
+
+	select * from detalleOrdenes
+	select * from Ordenes

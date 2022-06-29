@@ -63,4 +63,26 @@ public class productoDAO implements ConsultasImplements {
         }
 //        return listaPed;
     }
+    
+    public void eliminarProducto(int cod) throws SQLException{
+        Connection con = null;
+        CallableStatement cs = null;
+        try{
+        con = Conexion.establecerConexion();
+        cs = con.prepareCall(ELIMINARPRODUCTO_SP);
+        cs.setInt(1, cod);
+        int row = cs.executeUpdate();
+            if (row>0) {
+                JOptionPane.showMessageDialog(null, "Producto eliminado");
+            }
+        
+        }
+        
+        catch(SQLException e){
+            e.printStackTrace(System.out);
+        }finally {
+            Conexion.close(cs);
+            Conexion.close(con);
+        }
+    }
 }
