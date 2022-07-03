@@ -37,7 +37,7 @@ public class productoDAO implements ConsultasImplements {
         }
         return cod;
     }
-
+    //método para insertar registro
     public void insertarRegistro(ProductoAlmohadas pa) throws SQLException {
 //        ArrayList listaPed = new ArrayList();
 
@@ -63,7 +63,7 @@ public class productoDAO implements ConsultasImplements {
         }
 //        return listaPed;
     }
-    
+    //método para eliminar producto 1x1
     public void eliminarProducto(int cod) throws SQLException{
         Connection con = null;
         CallableStatement cs = null;
@@ -75,9 +75,7 @@ public class productoDAO implements ConsultasImplements {
             if (row>0) {
                 JOptionPane.showMessageDialog(null, "Producto eliminado");
             }
-        
         }
-        
         catch(SQLException e){
             e.printStackTrace(System.out);
         }finally {

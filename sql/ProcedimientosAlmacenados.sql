@@ -253,6 +253,7 @@ create procedure insertarVentaDiaria
  go
 
 
+ use SistemaVentasAM
 
 	select * from Productos
 
@@ -268,3 +269,6 @@ create procedure insertarVentaDiaria
 
 	select * from detalleOrdenes
 	select * from Ordenes
+	select * from Cliente
+
+	go

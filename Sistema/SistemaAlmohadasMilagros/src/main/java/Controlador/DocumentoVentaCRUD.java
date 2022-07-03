@@ -40,18 +40,14 @@ public class DocumentoVentaCRUD {
         Factura f = new Factura();
         String CodDoc = f.generarCodigo();
         String Fecha = f.generarFecha(new Date());
-
         f.setFechaEmision(Fecha);
         f.setTipoDocu(tipoDoc);
         f.setCodigoVenta(CodDoc);
-
         contador++;
         String OrdenRe = f.GenerarOrdenResmion(contador);
         f.setOrdenRemision(OrdenRe);
-
         cliente.setRazonSocial(a.getText());
         cliente.setRUC(b.getText());
-
         try {
             fd.insert(f, cliente);
             cliente.setDNI(c.getText());

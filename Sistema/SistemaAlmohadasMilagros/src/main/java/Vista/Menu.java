@@ -82,6 +82,9 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         listaClienteBtn.setBackground(Color.BLACK);
         btnVentas.setForeground(Color.white);
         btnVentas.setBackground(Color.BLACK);
+        btnSalida.setForeground(Color.white);
+        btnSalida.setBackground(Color.BLACK);
+
     }
 
     public void mostrarTabla() {
@@ -225,6 +228,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         jTable1 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel29 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1162,6 +1166,8 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         jLabel29.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel29.setText("Buscar por fecha:");
 
+        jTextField1.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1169,7 +1175,10 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel29)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(32, 32, 32)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel25)
                         .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1189,27 +1198,29 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(82, 82, 82)
                 .addComponent(jLabel25)
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
                     .addComponent(lblFechaActual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(lblCantidadVentas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(lblTotalVentas))
-                .addGap(28, 28, 28)
+                .addGap(37, 37, 37)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         JTabbedPanel.addTab("", jPanel7);
@@ -1262,26 +1273,16 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
 
     public void borrarDatos() {
         boxProducto.setSelectedIndex(0);
-        txtRUC.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtDNI.setText("");
-        txtRazonSocial.setText("");
-        txtDestino.setText("");
         boxMedidas.setSelectedIndex(0);
         boxProducto.setSelectedIndex(0);
         precio.setText("S/. " + String.valueOf(precioPorUnidad[0]));
         boxMedidas.setSelectedIndex(0);
-        Double in = 1d;
-        cantidad.setText("");
+        cantidad.setText("1");
         controlMenu.precioT(almohadas, boxMedidas, boxProducto, cantidad, precioTotal);
-
     }
 
     public void calcularPrecio() {
-
         precio.setText("S/. " + almohadas.getPrecioUnitario());
-
     }
 
 
@@ -1301,23 +1302,13 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-        borrarDatos();
-
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
         // TODO add your handling code here:
-        fuenteColor.mensaje(txtNombre, letraFmenu.getNombre(), 0);
-        fuenteColor.mensaje(txtApellidos, letraFmenu.getApellido(), 0);
-        fuenteColor.mensaje(txtDNI, letraFmenu.getDNI(), 0);
-        fuenteColor.mensaje(txtRazonSocial, letraFmenu.getRazonSocial(), 0);
-        fuenteColor.mensaje(txtRUC, letraFmenu.getRuc(), 0);
-        fuenteColor.mensaje(txtDestino, letraFmenu.getDestino(), 0);
-        fuenteColor.mensaje(txtTelefono, letraFmenu.getTelefono(), 0);
-        fuenteColor.mensaje(txtCorreo, letraFmenu.getCorreo(), 0);
-        fuenteColor.mensaje(txtProvincia, letraFmenu.getProvincia(), 0);
+        controlMenu.limpiarDatos(fuenteColor, letraFmenu, txtNombre, txtApellidos, txtDNI, txtRazonSocial, txtRUC, txtDestino, txtTelefono, txtCorreo, txtProvincia);
         controlMenu.asignarColor(boxProducto, almohadas, comboColor);
-
+        borrarDatos();
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
 
@@ -1510,28 +1501,13 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
-            // TODO add your handling code here:
-//        try {
-//            int fila = tableMatriz.getSelectedRow();
-//
-//            if (fila >= 0) {
-//                modeloTabla.removeRow(fila);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila de la tabla", "Error", JOptionPane.ERROR);
-//            }
-//        } catch (RuntimeException r) {
-//            r.printStackTrace(System.out);
-//            JOptionPane.showMessageDialog(null, "No hay registros", "Error", JOptionPane.ERROR_MESSAGE);
-//
-//        }
-    
-        controlMenu.eliminarBoton(tableMatriz, modeloTabla,codProductos);
+            controlMenu.eliminarBoton(tableMatriz, modeloTabla, codProductos);
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    
+
     private void btnEliminarTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTotalActionPerformed
         // TODO add your handling code here:
         try {
@@ -1609,6 +1585,8 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
             try {
                 control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
                 control.insertarDatos(cliente, txtRazonSocial, txtRUC, "Boleta", txtDNI, codProductos, cantidadPro, PrecioToPro);
+                controlMenu.limpiarDatos(fuenteColor, letraFmenu, txtNombre, txtApellidos, txtDNI, txtRazonSocial, txtRUC, txtDestino, txtTelefono, txtCorreo, txtProvincia);
+
             } catch (SQLException ex) {
             }
         } else {
@@ -1626,6 +1604,8 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
             try {
                 control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
                 control.insertarDatos(cliente, txtRazonSocial, txtRUC, "Boleta", txtDNI, codProductos, cantidadPro, PrecioToPro);
+                controlMenu.limpiarDatos(fuenteColor, letraFmenu, txtNombre, txtApellidos, txtDNI, txtRazonSocial, txtRUC, txtDestino, txtTelefono, txtCorreo, txtProvincia);
+
             } catch (SQLException ex) {
             }
         } else {
@@ -1669,11 +1649,9 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         try {
             // TODO add your handling code here:
             mostrarClientesCRUD mos = new mostrarClientesCRUD();
-
             mos.seleccionarCliente(tablaListaCliente, dniBuscar, nombreBuscar, ApellidoBuscar, telefonoBuscar, carreoBuscar, direccionBuscar, provinciaBuscar);
         } catch (SQLException ex) {
         }
-
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void actualizarbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarbtnMouseClicked
@@ -1768,7 +1746,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     /**
@@ -1883,6 +1861,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCantidadVentas;
     private javax.swing.JLabel lblFechaActual;
     private javax.swing.JLabel lblTotalVentas;

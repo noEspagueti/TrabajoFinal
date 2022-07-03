@@ -2,6 +2,8 @@ package Controlador;
 
 import DTO.ProductoAlmohadas;
 import Modelo.productoDAO;
+import Vista.FuenteColor;
+import Vista.LetraFantasmaMenu;
 import Vista.datosMenu;
 import static Vista.datosMenu.Producto;
 import static Vista.datosMenu.almohadas;
@@ -221,7 +223,6 @@ public class controladorMenu implements datosMenu {
                         pd.eliminarProducto(codPro);
                     }
                 }
-
             } else {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar una fila de la tabla", "Error", JOptionPane.ERROR);
             }
@@ -230,6 +231,20 @@ public class controladorMenu implements datosMenu {
             JOptionPane.showMessageDialog(null, "No hay registros", "Error", JOptionPane.ERROR_MESSAGE);
 
         }
+    }
+
+    public void limpiarDatos(FuenteColor fuenteColor, LetraFantasmaMenu letraFmenu, JTextField txtNombre, JTextField txtApellidos, JTextField txtDNI, JTextField txtRazonSocial, JTextField txtRUC,
+            JTextField txtDestino, JTextField txtTelefono, JTextField txtCorreo, JTextField txtProvincia) {
+        fuenteColor.mensaje(txtNombre, letraFmenu.getNombre(), 0);
+        fuenteColor.mensaje(txtApellidos, letraFmenu.getApellido(), 0);
+        fuenteColor.mensaje(txtDNI, letraFmenu.getDNI(), 0);
+        fuenteColor.mensaje(txtRazonSocial, letraFmenu.getRazonSocial(), 0);
+        fuenteColor.mensaje(txtRUC, letraFmenu.getRuc(), 0);
+        fuenteColor.mensaje(txtDestino, letraFmenu.getDestino(), 0);
+        fuenteColor.mensaje(txtTelefono, letraFmenu.getTelefono(), 0);
+        fuenteColor.mensaje(txtCorreo, letraFmenu.getCorreo(), 0);
+        fuenteColor.mensaje(txtProvincia, letraFmenu.getProvincia(), 0);
+
     }
 
 }
