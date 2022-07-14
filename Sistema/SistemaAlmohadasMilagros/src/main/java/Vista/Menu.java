@@ -6,6 +6,7 @@ import DTO.Factura;
 import DTO.ProductoAlmohadas;
 import Modelo.ClienteDAO;
 import Controlador.EmpleadoCRUD;
+import Controlador.controladorListaVentas;
 import Controlador.controladorMenu;
 import Controlador.detalleOrdenCRUD;
 import Controlador.mostrarClientesCRUD;
@@ -61,8 +62,15 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         iniciar();
 
         cantidad.setText("1");
+        try{
+        mostrarLista();
+        }catch(SQLException e){
+            
+        }   
     }
-
+    public void mostrarLista() throws SQLException{
+        m.mostrarListaVenta(lblFechaActual, lblCantidadVentas, lblTotalVentas);
+    }
     public void iniciar() {
         fuenteColor.mensaje(txtNombre, letraFmenu.getNombre(), 0);
         fuenteColor.mensaje(txtApellidos, letraFmenu.getApellido(), 0);
@@ -216,6 +224,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         jButton1 = new javax.swing.JButton();
         actualizarbtn = new javax.swing.JButton();
         limpiarbtn = new javax.swing.JButton();
+        btnEliminarCliente = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -1032,6 +1041,18 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
             }
         });
 
+        btnEliminarCliente.setText("Eliminar");
+        btnEliminarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarClienteMouseClicked(evt);
+            }
+        });
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1071,13 +1092,15 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(buscarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(buscarDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(actualizarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(limpiarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(limpiarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -1118,7 +1141,8 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarbtn)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btnEliminarCliente))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
@@ -1127,6 +1151,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel25.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(204, 204, 204));
         jLabel25.setText("Lista de Ventas");
 
         jLabel26.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -1198,9 +1223,9 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(71, 71, 71)
                 .addComponent(jLabel25)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
                     .addComponent(lblFechaActual))
@@ -1586,7 +1611,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
                 control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
                 control.insertarDatos(cliente, txtRazonSocial, txtRUC, "Boleta", txtDNI, codProductos, cantidadPro, PrecioToPro);
                 controlMenu.limpiarDatos(fuenteColor, letraFmenu, txtNombre, txtApellidos, txtDNI, txtRazonSocial, txtRUC, txtDestino, txtTelefono, txtCorreo, txtProvincia);
-
+                control.eliminarDatos(modeloTabla, tableMatriz);
             } catch (SQLException ex) {
             }
         } else {
@@ -1605,6 +1630,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
                 control.sqlCliente(txtNombre, txtApellidos, txtDNI, txtTelefono, txtProvincia, txtDestino, txtCorreo);
                 control.insertarDatos(cliente, txtRazonSocial, txtRUC, "Boleta", txtDNI, codProductos, cantidadPro, PrecioToPro);
                 controlMenu.limpiarDatos(fuenteColor, letraFmenu, txtNombre, txtApellidos, txtDNI, txtRazonSocial, txtRUC, txtDestino, txtTelefono, txtCorreo, txtProvincia);
+                control.eliminarDatos(modeloTabla, tableMatriz);
 
             } catch (SQLException ex) {
             }
@@ -1661,6 +1687,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         try {
             mos.actualizarCliente(tablaListaCliente, dniBuscar, nombreBuscar, ApellidoBuscar, telefonoBuscar, carreoBuscar, direccionBuscar, provinciaBuscar);
             mos.seleccionarCliente(tablaListaCliente, txtDNI, txtDNI, txtDNI, txtDNI, txtDNI, txtDNI, txtRUC);
+            mos.eliminarDatos(tablaListaCliente);
             limpiarCliente();
 
         } catch (SQLException ex) {
@@ -1679,7 +1706,14 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
 
     private void limpiarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarbtnActionPerformed
         // TODO add your handling code here:
-        limpiarCliente();
+        
+        mostrarClientesCRUD el = new mostrarClientesCRUD();
+        try {
+            el.eliminarDatos(tablaListaCliente);
+            limpiarCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_limpiarbtnActionPerformed
 
     private void comboColorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboColorMouseClicked
@@ -1749,6 +1783,23 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
 
     }//GEN-LAST:event_btnEliminarMouseClicked
 
+    private void btnEliminarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarClienteMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btnEliminarClienteMouseClicked
+
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+        // TODO add your handling code here:
+         mostrarClientesCRUD el = new mostrarClientesCRUD();
+        try {
+            el.eliminarBotonCliente(dniBuscar);
+            el.eliminarDatos(tablaListaCliente);
+            limpiarCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1784,7 +1835,9 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                
+                    new Menu().setVisible(true);
+                
             }
         });
     }
@@ -1801,6 +1854,7 @@ public class Menu extends javax.swing.JFrame implements datosMenu {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBoleta;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JButton btnEliminarTotal;
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnLimpiar;

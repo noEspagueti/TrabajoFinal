@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Controlador.controladorListaVentas;
 import Controlador.detalleOrdenCRUD;
 import DTO.Cliente;
 import DTO.ProductoAlmohadas;
@@ -26,7 +27,7 @@ public interface datosMenu {
     Double precioPorUnidad[] = {12.0, 15.0, 17.0, 20.0, 25.0, 27.0, 10.0, 12.0, 15.0, 8.0, 9.0, 10.0};
     
     
-    
+    controladorListaVentas m = new controladorListaVentas();
     Cliente cliente = new Cliente();
     ProductoAlmohadas almohadas = new ProductoAlmohadas();
     DefaultTableModel modeloTabla = new DefaultTableModel();

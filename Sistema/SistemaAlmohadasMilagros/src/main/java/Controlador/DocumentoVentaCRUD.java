@@ -7,11 +7,13 @@ import Modelo.ClienteDAO;
 import Modelo.ClienteDAO;
 import Modelo.FacturaDAO;
 import Modelo.FacturaDAO;
+import Modelo.ventaDiariaDAO;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class DocumentoVentaCRUD {
 
@@ -20,6 +22,7 @@ public class DocumentoVentaCRUD {
     int contador = 0;
     ordenCRUD or = new ordenCRUD();
     detalleOrdenCRUD ord = new detalleOrdenCRUD();
+    ventaDiariaDAO v = new ventaDiariaDAO();
 
     public void sqlCliente(JTextField a, JTextField b, JTextField c, JTextField d, JTextField e, JTextField f, JTextField g) throws SQLException {
 
@@ -35,7 +38,7 @@ public class DocumentoVentaCRUD {
     }
 
     //realizar método para recolectar los códigos del producto
-    public void insertarDatos(Cliente cliente, JTextField a, JTextField b, String tipo, JTextField c, List<Integer> codPro,List<Integer> cantidadPro, List<Double> precioTotal) {
+    public void insertarDatos(Cliente cliente, JTextField a, JTextField b, String tipo, JTextField c, List<Integer> codPro, List<Integer> cantidadPro, List<Double> precioTotal) {
         String tipoDoc = tipo;
         Factura f = new Factura();
         String CodDoc = f.generarCodigo();
@@ -54,11 +57,24 @@ public class DocumentoVentaCRUD {
             or.insertarOrden(f, cliente);
             //bucle for para los codigos de los productos
             for (int i = 0; i < codPro.size(); i++) {
-                ord.insertarDetalle(or.getCod(),codPro.get(i),cantidadPro.get(i),precioTotal.get(i));
+                ord.insertarDetalle(or.getCod(), codPro.get(i), cantidadPro.get(i), precioTotal.get(i));
             }
+            
+//            v.insertarVentaDiaria();
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de insertar datos", "Error", JOptionPane.ERROR);
         }
     }
+
+    // Elimniar datos de la tabla
+    public void eliminarDatos(DefaultTableModel modeloTabla, javax.swing.JTable tableMatriz) {
+        int fila = tableMatriz.getRowCount();
+        for (int i = fila - 1; i >= 0; i--) {
+            modeloTabla.removeRow(i);
+        }
+    }
+
+    //
 
 }

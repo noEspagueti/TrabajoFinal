@@ -208,17 +208,31 @@ insert into detalleOrdenes
 	values(@ordenId,@proID,@cantidad,@preTotal);
 end;
 
+----------------------------------------
 
 create procedure insertarVentaDiaria
 (
 	@idVen int,
-	@ventaTotal money,
+	@ventaTotal int,
 	@fecha date
 )AS BEGIN
  INSERT INTO VentasDiarias
  values(@idVen,@ventaTotal,@fecha);
+
+
  END;
 
+
+ create procedure actualizarVentaDiaria
+ (
+ @idVen int,
+ @ventaTotal int
+ )as begin
+ 
+ UPDATE VentasDiarias 
+ SET ventaTotalDiaria = @ventaTotal
+ where IDVenta = @idVen;
+ END;
 
 
  create procedure insertarReporteEmpleado
@@ -232,7 +246,7 @@ create procedure insertarVentaDiaria
 	END;
 
 
-
+	------------------------------
 
  select * from VentasDiarias
  select * from ReporteEmpleado
@@ -272,3 +286,101 @@ create procedure insertarVentaDiaria
 	select * from Cliente
 
 	go
+
+
+	CREATE PROCEDURE actualizarCliente
+	(
+		@dni varchar(8),
+		@nom varchar(30),
+		@ap varchar(30),
+		@tele char(9),
+		@correro varchar(30),
+		@Direccion varchar(50),
+		@Provincia varchar(35),
+		
+	)AS BEGIN 
+	UPDATE Cliente
+	set Nombres=@nom,Apellidos = @ap,Telefono=@tele,Correo=@correo,Direccion = @Direccion,Provincia=@Provincia
+	where DNI=@dni;
+	END;
+
+
+
+
+	CREATE PROCEDURE eliminarCliente
+	(
+		@dni varchar(8)
+	)
+	AS BEGIN
+	DELETE Cliente
+		
+----------------------
+
+
+
+delete Cliente
+where dni = 'aaa'
+/*si se elimina un cliente se debe eliminar el documento de venta al mismo momento*/
+
+
+
+CREATE PROCEDURE obtenerCantidadVenta
+
+
+select day(a.fechaEmision)as dia,month(a.fechaEmision) as mes,count(*) as cantidad from DocumentoVenta a
+inner join Ordenes b on(b.CodDoc = a.CodDoc)
+group by day(a.fechaEmision),month(a.fechaEmision);
+
+
+
+select * from DocumentoVenta
+
+
+
+CREATE PROCEDURE obtenerCantidadVenta
+(
+@fecha Date
+)
+AS BEGIN 
+
+select count(*) as cantidad from DocumentoVenta a
+inner join Ordenes b on(b.CodDoc = a.CodDoc)
+where a.fechaEmision = @fecha;
+END;
+
+exec obtenerCantidadVenta '2022-08-20'
+
+
+
+
+create procedure eliminarCliente
+(
+@dni varchar (8)
+) as begin 
+ 
+ update Ordenes
+ set DNI_Cliente = null 
+ where DNI_Cliente= @dni;
+ 
+
+ delete Cliente
+ where DNI = @dni;
+ 
+ END;
+
+
+ create procedure mostrarListaVentas
+ AS BEGIN
+ 	select  
+	count(b.OrdenID) as 'cantidad de clientes',
+	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
+	from Empleado a
+	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	group by d.fechaEmision
+	order by 1;
+
+	END;
+
+exec mostrarListaVentas

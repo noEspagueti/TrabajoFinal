@@ -75,6 +75,7 @@ public class productoDAO implements ConsultasImplements {
             if (row>0) {
                 JOptionPane.showMessageDialog(null, "Producto eliminado");
             }
+            
         }
         catch(SQLException e){
             e.printStackTrace(System.out);

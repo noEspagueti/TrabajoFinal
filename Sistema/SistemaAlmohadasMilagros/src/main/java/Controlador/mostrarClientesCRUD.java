@@ -1,11 +1,13 @@
 package Controlador;
 
+import DTO.Cliente;
 import Modelo.ClienteDAO;
 import Modelo.Conexion;
 import static Modelo.ConsultasImplements.ACTUALIZARCLIENTE_SP;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -28,7 +30,6 @@ public class mostrarClientesCRUD {
         Object[] columna = new Object[7];
         int numeroRegistro = cliente.listarCliente().size();
         for (int i = 0; i < numeroRegistro; i++) {
-
             columna[0] = cliente.listarCliente().get(i).getDNI();
             columna[1] = cliente.listarCliente().get(i).getNombre();
             columna[2] = cliente.listarCliente().get(i).getApellido();
@@ -85,7 +86,7 @@ public class mostrarClientesCRUD {
 
     }
 
-    public void actualizarCliente(JTable tablaCliente, JTextField dni, JTextField nom, JTextField ap, JTextField te, JTextField co, JTextField di, JTextField pr ) throws SQLException {
+    public void actualizarCliente(JTable tablaCliente, JTextField dni, JTextField nom, JTextField ap, JTextField te, JTextField co, JTextField di, JTextField pr) throws SQLException {
         Connection con = null;
         CallableStatement cs = null;
         int cantidad = cliente.listarCliente().size();
@@ -106,13 +107,48 @@ public class mostrarClientesCRUD {
 
             }
 
-            seleccionarCliente(tablaCliente,dni,nom,ap,te,co,di,pr);
+            seleccionarCliente(tablaCliente, dni, nom, ap, te, co, di, pr);
             JOptionPane.showMessageDialog(null, "Registros Aztualizados");
-            }catch(Exception e){
+        } catch (Exception e) {
         } finally {
             Conexion.close(cs);
             Conexion.close(con);
         }
 
     }
+
+    public void eliminarBotonCliente(JTextField dni) throws SQLException {
+        cliente.eliminarCliente(dni.getText());
+
+    }
+
+    // Elimniar datos de la tabla
+    public void eliminarDatos(JTable tablaListaCliente) throws SQLException {
+          DefaultTableModel modeloT = new DefaultTableModel();
+        tablaListaCliente.setModel(modeloT);
+        modeloT.addColumn("DNI");
+        modeloT.addColumn("Nombres");
+        modeloT.addColumn("Apellidos");
+        modeloT.addColumn("Telefono");
+        modeloT.addColumn("Correo");
+        modeloT.addColumn("Direccion");
+        modeloT.addColumn("Provincia");
+
+            int cantidad = cliente.listarCliente().size();
+           
+            Object[] columna = new Object[7];
+            for (int j = 0; j < cantidad; j++) {
+                columna[0] = "";
+                columna[1] = "";
+                columna[2] = "";
+                columna[3] = "";
+                columna[4] = "";
+                columna[5] = "";
+                columna[6] = "";
+                modeloT.addRow(columna);
+                
+            }
+        
+    }
+
 }

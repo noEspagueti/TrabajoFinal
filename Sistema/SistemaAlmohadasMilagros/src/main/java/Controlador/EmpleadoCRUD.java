@@ -25,7 +25,7 @@ public class EmpleadoCRUD implements ConsultasImplements {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        sesionCRUD s = new sesionCRUD();
+        sensionControlador s = new sensionControlador();
         ArrayList list = new ArrayList();
         Empleados em ;
         try {

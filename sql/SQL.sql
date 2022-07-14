@@ -227,6 +227,9 @@ add  FechaNacimiento date
 	(4,30,'2020-08-20'),
 	(5,10,'2022-08-20');
 	
+	update VentasDiarias
+	set VentaTotalDiaria =10
+	where IDVenta = 5
 
 
 	select * from ReporteEmpleado
@@ -290,15 +293,26 @@ values (1,4,1220),(2,3,780),(3,2,450);
 
 	select  a.Nombres
 	,count(b.OrdenID) as 'cantidad de clientes',
-	sum(c.PrecioTotal) as 'Dinero total'
+	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
 	from Empleado a
 	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
 	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
-	group by a.Nombres
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	group by a.Nombres,d.fechaEmision
 	order by 1
 
 	go
 
+	select  
+	count(b.OrdenID) as 'cantidad de clientes',
+	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
+	from Empleado a
+	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	
+	group by d.fechaEmision
+	order by 1
 
 	-- mostrar la cantidad de pedidos por cliente junto con sus nombres y documentos de dni y el dódico del documento de venta
 
@@ -308,10 +322,13 @@ values (1,4,1220),(2,3,780),(3,2,450);
 	select * from detalleOrdenes
 
 
-	select a.Nombres,a.DNI, b.CodDoc as 'Cod. Documento Venta',sum(c.CantidadPedidos) as 'Cantidad de pedidos' from Cliente a
+	select a.Nombres,a.DNI,sum(c.CantidadPedidos) as 'Cantidad de pedidos',
+	e.fechaEmision
+	from Cliente a
 	inner join Ordenes b on(b.DNI_Cliente = a.DNI)
 	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
-	group by a.Nombres , a.DNI , b.CodDoc
+	inner join DocumentoVenta e on(e.CodDoc=b.CodDoc)
+	group by a.Nombres , a.DNI ,e.fechaEmision
 
 
 
@@ -332,4 +349,4 @@ values (1,4,1220),(2,3,780),(3,2,450);
 
 	select * from DocumentoVenta
 
-	select * from Empleado
+	

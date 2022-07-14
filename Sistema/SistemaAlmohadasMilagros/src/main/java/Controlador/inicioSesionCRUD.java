@@ -12,15 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Miguel
  */
-public class sesionCRUD {
-
+public class inicioSesionCRUD {
     Menu abrirMenu = new Menu();
 
     public void iniciarSesion(String user, String pass, JFrame a) throws SQLException {

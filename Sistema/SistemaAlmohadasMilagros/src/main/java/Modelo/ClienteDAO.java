@@ -9,13 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class ClienteDAO implements ConsultasImplements {
-
+    ArrayList<Cliente> listaClientes = new ArrayList<>();   
     public void insertarCliente(Cliente c) throws SQLException {
         Connection con = null;
         CallableStatement cs = null;
-
+        
         try {
             con = Conexion.establecerConexion();
             cs = con.prepareCall(INSERTARCLIENTE_SP);
@@ -39,8 +40,8 @@ public class ClienteDAO implements ConsultasImplements {
         }
     }
 
-    public List<Cliente> listarCliente() throws SQLException {
-        ArrayList<Cliente> listaClientes = new ArrayList<>();
+    public ArrayList<Cliente> listarCliente() throws SQLException {
+        
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -70,6 +71,23 @@ public class ClienteDAO implements ConsultasImplements {
         return listaClientes;
     }
 
-  
+   public void eliminarCliente(String dni) throws SQLException{
+        Connection con = null;
+        CallableStatement cs = null;
+        try{
+            con = Conexion.establecerConexion();
+            cs = con.prepareCall(ELIMINARCLIENTE_SP);
+            cs.setString(1, dni);
+            int row = cs.executeUpdate();
+            if (row>0) {
+                JOptionPane.showMessageDialog(null, "Cliente eliminado");
+            }
+        }catch(SQLException e){
+            e.printStackTrace(System.out);
+        }finally{
+            Conexion.close(cs);
+            Conexion.close(con);
+        }
+    }
 
 }

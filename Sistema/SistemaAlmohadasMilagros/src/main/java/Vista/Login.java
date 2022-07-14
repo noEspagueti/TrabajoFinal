@@ -1,12 +1,12 @@
 package Vista;
 
-import Controlador.EmpleadoCRUD;
-import Controlador.inicioSesion;
-import Controlador.sesionCRUD;
-import Modelo.Conexion;
+
+
+import Controlador.inicioSesionCRUD;
+import Controlador.sensionControlador;
+
+
 import DTO.CredencialesUsuarios;
-import static Modelo.ConsultasImplements.MOSTRARUSUARIOS_SP;
-import Modelo.usuarioEmpleadoDAO;
 
 import java.awt.Color;
 import java.awt.KeyboardFocusManager;
@@ -17,10 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
 
 public class Login extends javax.swing.JFrame {
 
@@ -369,7 +368,7 @@ public class Login extends javax.swing.JFrame {
                 && !cu.getPassWord().equals(mensaje.getPassWord())) {
 
             try {
-                sesionCRUD iniciar = new sesionCRUD();
+                sensionControlador iniciar = new sensionControlador();
                 iniciar.iniciarSesion(txtUsuario.getText(),txtPassword.getText(), this);
                
             } catch (SQLException ex) {

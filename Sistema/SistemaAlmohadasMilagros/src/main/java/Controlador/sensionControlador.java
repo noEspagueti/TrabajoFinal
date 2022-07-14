@@ -1,9 +1,7 @@
-
-
 package Controlador;
 
 import Modelo.Conexion;
-import Modelo.ConsultasImplements;
+import static Modelo.ConsultasImplements.MOSTRARUSUARIOS_SP;
 import Vista.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,13 +10,14 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class inicioSesion implements ConsultasImplements  {
-    
-    public void iniciarSesion(String user, String pass,JFrame a) throws SQLException{
+public class sensionControlador {
+     Menu abrirMenu = new Menu();
+
+    public void iniciarSesion(String user, String pass, JFrame a) throws SQLException {
         Connection co = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Menu abrirMenu = new Menu();
+        EmpleadoCRUD em = new EmpleadoCRUD();
         try {
             co = Conexion.establecerConexion();
             ps = co.prepareStatement(MOSTRARUSUARIOS_SP);
@@ -28,11 +27,27 @@ public class inicioSesion implements ConsultasImplements  {
                 if (user.trim().equals(rs.getString(1)) && pass.trim().equals(rs.getString(2))) {
                     flag = 1;
                     abrirMenu.setVisible(true);
+                    if (user.trim().equals("admin1")) {
+
+                        for (int i = 0; i < em.mostrarDatos().size(); i++) {
+                            if (i == 0) {
+                                abrirMenu.NombreEmpleado.setText(em.mostrarDatos().get(0).getNombre());
+                                abrirMenu.apellidoEmpleado.setText(em.mostrarDatos().get(0).getApellido());
+                                abrirMenu.txtEmpleado.setText(em.mostrarDatos().get(0).getNombre());
+                                abrirMenu.puestoEmpleado.setText(em.mostrarDatos().get(0).getPuesto());
+                                abrirMenu.DniEmpleado.setText(em.mostrarDatos().get(0).getDNI());
+                                abrirMenu.telefonoEmpleado.setText(em.mostrarDatos().get(0).getTel());
+
+                            }
+                        }
+
+                    }
                     a.setVisible(false);
+
                 }
             }
             if (flag == 1) {
-                JOptionPane.showMessageDialog(null, "Bienvenidos");
+                JOptionPane.showMessageDialog(null, "Bienvenido");
             } else {
                 JOptionPane.showMessageDialog(null, "No existe esta cuenta", "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -44,6 +59,6 @@ public class inicioSesion implements ConsultasImplements  {
             Conexion.close(ps);
             Conexion.close(co);
         }
-    
     }
+    
 }
