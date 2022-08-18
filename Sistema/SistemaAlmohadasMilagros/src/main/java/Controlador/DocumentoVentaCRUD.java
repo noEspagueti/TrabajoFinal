@@ -60,8 +60,14 @@ public class DocumentoVentaCRUD {
                 ord.insertarDetalle(or.getCod(), codPro.get(i), cantidadPro.get(i), precioTotal.get(i));
             }
             
-//            v.insertarVentaDiaria();
-
+//            v.insertarVentaDiaria(codPro.size());
+            for (int i = 0; i < codPro.size(); i++) {
+                if (codPro.size()>=1) {
+                    codPro.remove(i);
+                    cantidadPro.remove(i);
+                    precioTotal.remove(i);
+                  }
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de insertar datos", "Error", JOptionPane.ERROR);
         }

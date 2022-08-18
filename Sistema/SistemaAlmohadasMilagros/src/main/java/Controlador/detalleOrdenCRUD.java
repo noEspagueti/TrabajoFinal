@@ -38,4 +38,5 @@ public class detalleOrdenCRUD implements ConsultasImplements {
     }
     
     
+    
 }

@@ -11,6 +11,12 @@ create table Cliente (
 	primary key(DNI)
 )
 
+	create table PuestoSalario(
+	 IDPuesto int  not null,
+	 Puesto varchar(25) not null,
+	 SalarioEmpleado money,
+	 primary key(IDPuesto)	
+	);
 
 create table Empleado(
 	EmpleadoID int  not null,
@@ -26,8 +32,7 @@ create table Empleado(
 	foreign key (PuestoID) references PuestoSalario(IDPuesto)
 );
 
-alter table Empleado	
-add  FechaNacimiento date
+
 
 	create table UsuarioEmpleado(
 		numCred int not null,
@@ -92,14 +97,6 @@ add  FechaNacimiento date
 
 
 	
-	create table PuestoSalario(
-	 IDPuesto int  not null,
-	 Puesto varchar(25) not null,
-	 SalarioEmpleado money,
-	 primary key(IDPuesto)	
-	);
-
-
 	create table VentasDiarias(
 		IDVenta int  not null,
 		VentaTotalDiaria int not null,
@@ -218,14 +215,14 @@ add  FechaNacimiento date
 
 	
 
-
+	delete VentasDiarias
 	select * from VentasDiarias
 	insert into VentasDiarias
 	values (1,50,'2018-05-12'),
 	(2,50,'2020-05-12'),
 	(3,50,'2020-08-18'),
 	(4,30,'2020-08-20'),
-	(5,10,'2022-08-20');
+	(5,40,'2022-08-20');
 	
 	update VentasDiarias
 	set VentaTotalDiaria =10
@@ -242,7 +239,7 @@ add  FechaNacimiento date
 	inner join DocumentoVenta d on(d.CodDoc = a.CodDoc)
 
 insert into ReporteEmpleado
-values (1,4,1220),(2,3,780),(3,2,450);
+values (1,2,700),(2,2,520),(3,1,400),(4,2,380),(5,4,450);
 
 	delete ReporteEmpleado
 	where IDReporte = 3
@@ -304,7 +301,7 @@ values (1,4,1220),(2,3,780),(3,2,450);
 	go
 
 	select  
-	count(b.OrdenID) as 'cantidad de clientes',
+	count(*) as 'cantidad de clientes',
 	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
 	from Empleado a
 	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
@@ -350,3 +347,25 @@ values (1,4,1220),(2,3,780),(3,2,450);
 	select * from DocumentoVenta
 
 	
+	select * from Empleado a
+	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	order by 1
+
+
+
+
+
+
+
+
+
+
+	
+select (e.Nombres + '' + e.Apellidos) 'Nombre Cliente', e.DNI as'Documento de Indentidad',	b.Nombres as 'Nombre Empleado',
+d.NombreProduc as 'Nombre pedido', c.CantidadPedidos	from Ordenes a 
+	inner join Empleado b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = a.OrdenID)
+	inner join Productos d on(d.ProductoID=c.ProductoID)
+	inner join Cliente e on(e.DNI = a.DNI_Cliente);

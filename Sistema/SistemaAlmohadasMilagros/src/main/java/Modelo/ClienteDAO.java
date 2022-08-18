@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class ClienteDAO implements ConsultasImplements {
+    public class ClienteDAO implements ConsultasImplements {
     ArrayList<Cliente> listaClientes = new ArrayList<>();   
     public void insertarCliente(Cliente c) throws SQLException {
         Connection con = null;

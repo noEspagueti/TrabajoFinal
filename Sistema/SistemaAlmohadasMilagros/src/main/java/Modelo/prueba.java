@@ -7,6 +7,7 @@ package Modelo;
 import DTO.Factura;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
@@ -18,12 +19,12 @@ public class prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        listaVentasDAO lv = new listaVentasDAO();
-        for (int i = 0; i < lv.mostrarDatos().size(); i++) {
-            System.out.println(lv.mostrarDatos().get(i).getFecha());
-            System.out.println(lv.mostrarDatos().get(i).getDineroTotal());
-            System.out.println(lv.mostrarDatos().get(i).getCantClientes());
+
+        registroEmpleadoDAO r = new registroEmpleadoDAO();
+        for (int i = 0; i < r.mostrarTabla().size(); i++) {
+            System.out.println(r.mostrarTabla().get(i).getFechaNacimiento());
         }
+
     }
-    
+
 }

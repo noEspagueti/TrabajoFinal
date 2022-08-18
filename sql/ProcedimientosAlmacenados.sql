@@ -384,3 +384,102 @@ create procedure eliminarCliente
 	END;
 
 exec mostrarListaVentas
+
+
+create procedure mostrarListaVentasTabla
+as begin
+	select  a.Nombres
+	,count(b.OrdenID) as 'cantidad de clientes',
+	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
+	from Empleado a
+	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	WHERE d.fechaEmision = '2022-07-23'
+	group by a.Nombres,d.fechaEmision
+	order by MONTH(d.fechaEmision);
+	END;
+
+exec mostrarListaVentasTabla
+
+
+create procedure buscarFecharVentaTabla
+(
+@fecha date
+) as begin
+select  a.Nombres
+	,count(b.OrdenID) as 'cantidad de clientes',
+	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
+	from Empleado a
+	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	WHERE d.fechaEmision = @fecha
+	group by a.Nombres,d.fechaEmision
+	order by MONTH(d.fechaEmision);
+	END;
+go
+
+create procedure editarListaVentaTabla
+(
+	
+)
+AS BEGIN
+	select  a.Nombres
+	,count(b.OrdenID) as 'cantidad de clientes',
+	sum(c.PrecioTotal) as 'Dinero total',d.fechaEmision
+	from Empleado a
+	inner join Ordenes b on(b.EmpleadoID = a.EmpleadoID)
+	inner join detalleOrdenes c on(c.OrdenID = b.OrdenID)
+	inner join DocumentoVenta d on(d.CodDoc=b.CodDoc)
+	group by a.Nombres,d.fechaEmision
+	order by MONTH(d.fechaEmision);
+
+END;
+
+create procedure registrarEmpleado
+(
+@id int ,
+@puesto int,
+@nom varchar(50),
+@ap varchar(50),
+@dni varchar(8),
+@telf varchar(9),
+@direc varchar(60),
+@distri varchar(50),
+@fechaNa date
+)AS BEGIN
+	INSERT INTO Empleado
+		values(@id,@puesto,@nom,@ap,@dni,@telf,@direc,@distri,@fechaNa);
+END;
+
+
+create procedure eliminarEmpleado
+(
+@dni varchar(8)
+) 
+AS BEGIN
+	delete Empleado
+	where DNI =  @dni
+END;
+
+
+SELECT * FROM Empleado
+
+create procedure actualizarRegistroEmpleado
+(
+@nom varchar(30),
+@apell varchar(30),
+@tel varchar(9),
+@direc varchar(50),
+@distr varchar(30),
+@fechaNa date,
+@dni varchar(8)
+) AS BEGIN
+update Empleado
+set Nombres = @nom, Apellidos = @apell , Telefono = @tel , Direccion = @direc, Distrito = @distr , DNI = @dni ,FechaNacimiento = @fechaNa
+where DNI = @dni;
+END;
+
+
+select * from Cliente
